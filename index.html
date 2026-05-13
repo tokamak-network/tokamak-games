@@ -61,6 +61,19 @@
         line-height: 1.2;
       }
 
+      .dotted-link {
+        color: inherit;
+        text-decoration: underline;
+        text-decoration-style: dotted;
+        text-decoration-thickness: 1px;
+        text-underline-offset: 4px;
+        transition: opacity 0.15s ease;
+      }
+
+      .dotted-link:hover {
+        opacity: 0.6;
+      }
+
       section {
         margin-bottom: 72px;
       }
@@ -72,7 +85,7 @@
 
       .game-item {
         display: grid;
-        grid-template-columns: 84px 1fr auto;
+        grid-template-columns: 84px 1fr;
         gap: 24px;
         align-items: center;
         padding: 25px 0;
@@ -98,18 +111,6 @@
         color: var(--muted);
         font-size: 14px;
         line-height: 1.4;
-      }
-
-      .game-link {
-        color: var(--ink);
-        font-size: 14px;
-        font-weight: 700;
-        text-decoration: none;
-        white-space: nowrap;
-      }
-
-      .game-link:hover {
-        color: var(--muted);
       }
 
       .section-note {
@@ -336,7 +337,14 @@
   <body>
     <div class="page">
       <h1>Tokamak Games</h1>
-      <p class="title-meta">Play to Glory - a Layer 2 for blockchain games</p>
+      <p class="title-meta">
+        <a
+          class="dotted-link"
+          href="https://shingonu.notion.site/Play-to-Glory-e574e8afde054c32be807b3d714e11a1"
+          target="_blank"
+          rel="noopener"
+        >Play to Glory</a> - a Layer 2 for blockchain games
+      </p>
 
       <p class="lede">
         Most blockchain games chase money. We chase meaning. Tokamak Games is
@@ -355,7 +363,14 @@
               alt="blockball logo"
             />
             <div class="game-content">
-              <h3>blockball</h3>
+              <h3>
+                <a
+                  class="dotted-link"
+                  href="https://blockball.fly.dev/"
+                  target="_blank"
+                  rel="noopener"
+                >blockball</a>
+              </h3>
               <p>
                 Fast top-down puck soccer for browser rivals. Real-time server
                 physics, 2 minute rooms, and chain-ready match receipts.
@@ -365,7 +380,6 @@
                 matches / result ledger
               </div>
             </div>
-            <a class="game-link" href="https://blockball.fly.dev/">Visit site</a>
           </article>
           <article class="game-item">
             <img
@@ -374,7 +388,14 @@
               alt="RIVAI logo"
             />
             <div class="game-content">
-              <h3>RIVAI</h3>
+              <h3>
+                <a
+                  class="dotted-link"
+                  href="https://gunz-mac.vercel.app/"
+                  target="_blank"
+                  rel="noopener"
+                >RIVAI</a>
+              </h3>
               <p>
                 A GunZ-inspired third-person action game built around high-speed
                 movement, wall runs, aerial duels, and sword-to-gun combat.
@@ -383,7 +404,6 @@
                 Arena action / movement mastery / browser prototype
               </div>
             </div>
-            <a class="game-link" href="https://gunz-mac.vercel.app/">Visit site</a>
           </article>
         </div>
       </section>
