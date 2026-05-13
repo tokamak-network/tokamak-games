@@ -1,0 +1,385 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <title>Tokamak Games - Whitepaper Editorial</title>
+    <meta
+      name="description"
+      content="A severe editorial landing page concept for Tokamak Games and Play to Glory."
+    />
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link
+      href="https://fonts.googleapis.com/css2?family=IBM+Plex+Mono:wght@500;600&amp;family=Libre+Baskerville:wght@400;700&amp;family=Work+Sans:wght@400;500;700&amp;display=swap"
+      rel="stylesheet"
+    />
+    <style>
+      :root {
+        --paper: #f7f1e3;
+        --ink: #17130e;
+        --soft: #6f675d;
+        --line: #c9beaa;
+        --red: #bd2f1d;
+        --blue: #173e8c;
+        --white: #fffaf0;
+        --serif: "Libre Baskerville", Georgia, serif;
+        --sans: "Work Sans", sans-serif;
+        --mono: "IBM Plex Mono", monospace;
+        --max: 1120px;
+      }
+
+      * { box-sizing: border-box; }
+
+      body {
+        margin: 0;
+        background:
+          linear-gradient(90deg, rgba(23, 19, 14, 0.045) 1px, transparent 1px),
+          var(--paper);
+        background-size: 25% 100%;
+        color: var(--ink);
+        font-family: var(--sans);
+        line-height: 1.65;
+      }
+
+      a { color: inherit; }
+
+      .page {
+        width: min(calc(100% - 42px), var(--max));
+        margin: 0 auto;
+      }
+
+      .hero {
+        min-height: 94svh;
+        display: grid;
+        grid-template-columns: 72px 1fr;
+        border-inline: 1px solid var(--line);
+      }
+
+      .rail {
+        border-right: 1px solid var(--line);
+        writing-mode: vertical-rl;
+        transform: rotate(180deg);
+        padding: 28px 20px;
+        color: var(--soft);
+        font-family: var(--mono);
+        font-size: 12px;
+        text-transform: uppercase;
+      }
+
+      .hero-main {
+        display: grid;
+        grid-template-rows: auto 1fr auto;
+      }
+
+      nav {
+        display: flex;
+        justify-content: space-between;
+        gap: 24px;
+        padding: 24px;
+        border-bottom: 1px solid var(--line);
+        font-family: var(--mono);
+        font-size: 12px;
+        text-transform: uppercase;
+      }
+
+      nav div { display: flex; gap: 18px; flex-wrap: wrap; justify-content: flex-end; }
+      nav a { text-decoration: none; }
+      nav a:hover { color: var(--red); }
+
+      .hero-copy {
+        display: grid;
+        grid-template-columns: 1fr 280px;
+        gap: 40px;
+        align-items: end;
+        padding: 72px 24px 48px;
+      }
+
+      h1, h2, h3, p { margin-top: 0; }
+      h1, h2 { font-family: var(--serif); line-height: 1.02; }
+
+      .kicker {
+        color: var(--red);
+        font-family: var(--mono);
+        font-size: 12px;
+        font-weight: 600;
+        text-transform: uppercase;
+      }
+
+      h1 {
+        max-width: 780px;
+        margin: 18px 0 28px;
+        font-size: clamp(58px, 9vw, 132px);
+      }
+
+      .lede {
+        max-width: 760px;
+        font-family: var(--serif);
+        font-size: clamp(22px, 2.4vw, 32px);
+        line-height: 1.42;
+      }
+
+      .abstract-card {
+        border: 1px solid var(--ink);
+        background: var(--white);
+        padding: 20px;
+        font-size: 14px;
+      }
+
+      .abstract-card strong {
+        display: block;
+        margin-bottom: 14px;
+        color: var(--red);
+        font-family: var(--mono);
+        font-size: 12px;
+        text-transform: uppercase;
+      }
+
+      .button {
+        display: inline-flex;
+        min-height: 46px;
+        align-items: center;
+        padding: 0 18px;
+        border: 1px solid var(--ink);
+        background: var(--ink);
+        color: var(--paper);
+        font-weight: 700;
+        text-decoration: none;
+      }
+
+      .hero-foot {
+        display: grid;
+        grid-template-columns: repeat(3, 1fr);
+        border-top: 1px solid var(--line);
+      }
+
+      .hero-foot span {
+        min-height: 94px;
+        padding: 18px 24px;
+        border-right: 1px solid var(--line);
+        font-family: var(--mono);
+        font-size: 12px;
+        text-transform: uppercase;
+      }
+
+      .hero-foot span:last-child { border-right: 0; }
+
+      main { border-inline: 1px solid var(--line); }
+
+      .section {
+        padding: 86px 24px;
+        border-bottom: 1px solid var(--line);
+      }
+
+      .section-head {
+        display: grid;
+        grid-template-columns: 160px 1fr;
+        gap: 40px;
+        margin-bottom: 44px;
+      }
+
+      .index {
+        color: var(--red);
+        font-family: var(--mono);
+        font-size: 12px;
+        text-transform: uppercase;
+      }
+
+      h2 {
+        max-width: 760px;
+        margin-bottom: 0;
+        font-size: clamp(38px, 6vw, 78px);
+      }
+
+      .copy {
+        max-width: 760px;
+        margin-left: 200px;
+      }
+
+      .copy p { font-size: 18px; }
+      .muted { color: var(--soft); }
+
+      .annotation {
+        display: grid;
+        grid-template-columns: 140px 1fr;
+        gap: 22px;
+        margin-top: 30px;
+        padding: 18px 0;
+        border-block: 1px solid var(--ink);
+        font-family: var(--mono);
+        font-size: 13px;
+      }
+
+      .models {
+        display: grid;
+        grid-template-columns: repeat(4, 1fr);
+        border-top: 1px solid var(--ink);
+        border-left: 1px solid var(--ink);
+      }
+
+      .model {
+        min-height: 250px;
+        padding: 22px;
+        border-right: 1px solid var(--ink);
+        border-bottom: 1px solid var(--ink);
+        background: var(--white);
+      }
+
+      .model code { color: var(--red); font-family: var(--mono); }
+      .model h3 { font-family: var(--serif); font-size: 30px; line-height: 1.1; }
+
+      .comparison {
+        display: grid;
+        grid-template-columns: 1fr 1fr;
+        border: 1px solid var(--ink);
+      }
+
+      .comparison article { padding: 28px; }
+      .comparison article:last-child { border-left: 1px solid var(--ink); background: var(--ink); color: var(--paper); }
+      .comparison h3 { font-family: var(--serif); font-size: 54px; }
+
+      .layer-list {
+        display: grid;
+        gap: 0;
+        border-top: 1px solid var(--ink);
+      }
+
+      .layer-list article {
+        display: grid;
+        grid-template-columns: 110px 180px 1fr;
+        gap: 20px;
+        padding: 22px 0;
+        border-bottom: 1px solid var(--ink);
+      }
+
+      .layer-list span { color: var(--blue); font-family: var(--mono); }
+      .layer-list h3 { margin: 0; font-family: var(--serif); font-size: 28px; }
+      .layer-list p { margin: 0; }
+
+      footer {
+        padding: 28px 24px;
+        border-inline: 1px solid var(--line);
+        color: var(--soft);
+        font-family: var(--mono);
+        font-size: 12px;
+      }
+
+      .foot { display: flex; justify-content: space-between; gap: 16px; }
+
+      @media (max-width: 880px) {
+        .hero, .hero-copy, .section-head, .comparison, .annotation { grid-template-columns: 1fr; }
+        .rail { writing-mode: horizontal-tb; transform: none; border-right: 0; border-bottom: 1px solid var(--line); }
+        .hero-foot, .models { grid-template-columns: 1fr; }
+        .copy { margin-left: 0; }
+        .layer-list article { grid-template-columns: 1fr; }
+      }
+    </style>
+  </head>
+  <body>
+    <div class="page">
+      <header class="hero" id="top">
+        <div class="rail">Protocol note / Play to Glory / 2026</div>
+        <div class="hero-main">
+          <nav aria-label="Primary navigation">
+            <a href="#top">Tokamak Games</a>
+            <div>
+              <a href="#abstract">Abstract</a>
+              <a href="#models">Models</a>
+              <a href="#layer2">Layer 2</a>
+            </div>
+          </nav>
+          <div class="hero-copy">
+            <div>
+              <span class="kicker">A Layer 2 for remembered play</span>
+              <h1>Play to Glory</h1>
+              <p class="lede">
+                Most blockchain games chase money. We chase meaning. Tokamak
+                Games reinstates consequence inside the Magic Circle and makes
+                victory, defeat, and contribution permanent.
+              </p>
+              <a class="button" href="#abstract">Read the paper</a>
+            </div>
+            <aside class="abstract-card">
+              <strong>Working thesis</strong>
+              Play itself is the source of value. Blockchain should preserve
+              achievement and recognition without compromising the core game
+              space.
+            </aside>
+          </div>
+          <div class="hero-foot">
+            <span>Core game: protected</span>
+            <span>Outcomes: public</span>
+            <span>Meta-games: composable</span>
+          </div>
+        </div>
+      </header>
+
+      <main>
+        <section class="section" id="abstract">
+          <div class="section-head"><span class="index">01 / Abstract</span><h2>Intrinsic play before economic extraction.</h2></div>
+          <div class="copy">
+            <p>Whereas most blockchain games prioritize monetary rewards under Play-to-Earn, P2G emphasizes intrinsic enjoyment and immersive gameplay by reinstating meaningful risk within the Magic Circle.</p>
+            <p class="muted">Layer 2 is employed as enabling infrastructure to make outcomes durable and public on-chain, and to support sustainable, community-governed growth.</p>
+            <div class="annotation"><span>Margin note</span><span>Play stays inside. Durable outcomes move outward into public infrastructure.</span></div>
+          </div>
+        </section>
+
+        <section class="section" id="magic">
+          <div class="section-head"><span class="index">02 / Magic Circle</span><h2>The game needs a boundary before it needs a market.</h2></div>
+          <div class="copy">
+            <p>First articulated by Johan Huizinga, the Magic Circle is the boundary between reality and play. Inside it, ordinary rules are suspended; the game's rules alone govern behavior and meaning.</p>
+            <p class="muted">Within this protected space, players develop skill, experience achievement, and cultivate self-respect. Cooperation and competition produce belonging and shared purpose that outlast the match itself.</p>
+          </div>
+        </section>
+
+        <section class="section" id="models">
+          <div class="section-head"><span class="index">03 / Monetization</span><h2>Historical pressure on the Magic Circle.</h2></div>
+          <div class="models">
+            <article class="model"><code>F2P</code><h3>Free-to-Play</h3><p>Revenue is extracted through purchases or ads. Friction is engineered, then convenience is sold.</p></article>
+            <article class="model"><code>P2W</code><h3>Pay-to-Win</h3><p>Paying players gain disproportionate advantage. Competition loses integrity.</p></article>
+            <article class="model"><code>P2E</code><h3>Play-to-Earn</h3><p>Players are rewarded financially for activity. Play collapses into labor.</p></article>
+            <article class="model"><code>P2G</code><h3>Play-to-Glory</h3><p>Blockchain preserves achievement, recognition, and shared meaning.</p></article>
+          </div>
+        </section>
+
+        <section class="section" id="p2g">
+          <div class="section-head"><span class="index">04 / Comparison</span><h2>From earn to glory.</h2></div>
+          <div class="comparison">
+            <article><span class="index">Play to Earn</span><h3>Money.</h3><p>Play is reduced to labor. Economic incentives dominate design. Markets distort into inflation, imbalance, and extraction.</p></article>
+            <article><span class="index">Play to Glory</span><h3>Glory.</h3><p>Play is the pursuit of meaning. Blockchain becomes a medium of recognition, preserving achievement and legitimizing community respect.</p></article>
+          </div>
+        </section>
+
+        <section class="section" id="sports">
+          <div class="section-head"><span class="index">05 / Sports</span><h2>Revenue belongs around the game, not inside its rules.</h2></div>
+          <div class="copy">
+            <p>In sports, revenue is not extracted from the core game. The core remains skill-based and inviolable. Meta-games emerge around it: broadcasting, tournaments, betting, sponsorships, merchandise.</p>
+            <p class="muted">P2G applies the same architecture to blockchain games. Prediction markets, fan memberships, guild economies, and tournaments surround the core without corrupting it.</p>
+          </div>
+        </section>
+
+        <section class="section" id="risk">
+          <div class="section-head"><span class="index">06 / Risk</span><h2>The leaderboard should remember again.</h2></div>
+          <div class="copy">
+            <p>The arcade era was defined by consequence: a limited number of lives and a leaderboard that remembered. Home consoles diluted the stakes; defeat lost its weight, and victory lost its meaning.</p>
+            <p class="muted">P2G restores stakes through persistence. Victories, defeats, and contributions are recorded on-chain: public, composable, permanent.</p>
+          </div>
+        </section>
+
+        <section class="section" id="layer2">
+          <div class="section-head"><span class="index">07 / Layer 2</span><h2>Infrastructure for permanent consequence.</h2></div>
+          <div class="layer-list">
+            <article><span>01</span><h3>Durable</h3><p>Every match outcome is settled on-chain. The record is public, composable, and permanent.</p></article>
+            <article><span>02</span><h3>Fast</h3><p>Low fees, high throughput, and instant confirmation suited to PvP loops.</p></article>
+            <article><span>03</span><h3>Composable</h3><p>Records flow into prediction markets, memberships, guilds, and tournaments.</p></article>
+            <article><span>04</span><h3>Governed</h3><p>Community-governed growth. The protocol serves the players.</p></article>
+          </div>
+        </section>
+      </main>
+
+      <footer>
+        <div class="foot"><span>Tokamak Games - Whitepaper Editorial</span><a href="#top">Back to top</a></div>
+      </footer>
+    </div>
+  </body>
+</html>

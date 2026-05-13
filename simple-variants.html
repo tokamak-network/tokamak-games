@@ -1,0 +1,69 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <title>Tokamak Games - Simple Variants</title>
+    <meta
+      name="description"
+      content="Four simple landing page variants for Tokamak Games."
+    />
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link
+      href="https://fonts.googleapis.com/css2?family=IBM+Plex+Mono:wght@500;600&amp;family=Space+Grotesk:wght@500;700&amp;display=swap"
+      rel="stylesheet"
+    />
+    <style>
+      :root {
+        --bg: #f5f6ef;
+        --ink: #11130f;
+        --muted: #687064;
+        --line: #d4dacd;
+        --accent: #285ee8;
+        --display: "Space Grotesk", sans-serif;
+        --mono: "IBM Plex Mono", monospace;
+      }
+
+      * { box-sizing: border-box; }
+      body { margin: 0; background: var(--bg); color: var(--ink); font-family: var(--display); line-height: 1.55; }
+      main { width: min(calc(100% - 36px), 980px); margin: 0 auto; padding: 72px 0; }
+      h1 { max-width: 760px; margin: 0 0 16px; font-size: clamp(42px, 7vw, 84px); line-height: 1; }
+      p { max-width: 660px; margin: 0 0 38px; color: var(--muted); font-size: 18px; }
+      .grid { display: grid; grid-template-columns: repeat(2, 1fr); gap: 14px; }
+      .card { min-height: 220px; display: flex; flex-direction: column; justify-content: space-between; padding: 22px; border: 1px solid var(--line); border-radius: 8px; background: #fff; color: inherit; text-decoration: none; }
+      .card:hover { border-color: var(--accent); transform: translateY(-2px); }
+      .card span { color: var(--accent); font-family: var(--mono); font-size: 12px; text-transform: uppercase; }
+      .card h2 { margin: 0 0 10px; font-size: 30px; line-height: 1.06; }
+      .card p { margin: 0; font-size: 15px; }
+      @media (max-width: 760px) { .grid { grid-template-columns: 1fr; } }
+    </style>
+  </head>
+  <body>
+    <main>
+      <h1>Simple Tokamak Games variants</h1>
+      <p>
+        Four lower-complexity directions built from the current Play to Glory
+        content. These are intentionally quieter than the first set.
+      </p>
+      <div class="grid">
+        <a class="card" href="simple-01-paper.html">
+          <span>DFII 12 / Minimal editorial</span>
+          <div><h2>Simple Paper</h2><p>Warm paper, serif thesis, and sparse ruled sections.</p></div>
+        </a>
+        <a class="card" href="simple-02-ledger.html">
+          <span>DFII 12 / Ledger structure</span>
+          <div><h2>Simple Ledger</h2><p>Plain protocol record with rows, codes, and compact summaries.</p></div>
+        </a>
+        <a class="card" href="simple-03-calm-product.html">
+          <span>DFII 11 / Product calm</span>
+          <div><h2>Calm Product</h2><p>Clean SaaS-like presentation without marketing clutter.</p></div>
+        </a>
+        <a class="card" href="simple-04-dark-note.html">
+          <span>DFII 11 / Dark minimal</span>
+          <div><h2>Dark Note</h2><p>Quiet dark manifesto with restrained notes and cards.</p></div>
+        </a>
+      </div>
+    </main>
+  </body>
+</html>

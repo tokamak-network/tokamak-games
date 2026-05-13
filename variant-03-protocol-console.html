@@ -1,0 +1,352 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <title>Tokamak Games - Protocol Console</title>
+    <meta
+      name="description"
+      content="A command-console landing page concept for Tokamak Games and Play to Glory."
+    />
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link
+      href="https://fonts.googleapis.com/css2?family=IBM+Plex+Mono:wght@400;500;600&amp;family=Space+Grotesk:wght@500;700&amp;display=swap"
+      rel="stylesheet"
+    />
+    <style>
+      :root {
+        --bg: #0a0d0a;
+        --panel: #121812;
+        --panel-2: #1a2118;
+        --ink: #e9f0df;
+        --muted: #97a48d;
+        --line: #33402e;
+        --green: #a8ff4d;
+        --amber: #ffc247;
+        --red: #ff6547;
+        --display: "Space Grotesk", sans-serif;
+        --mono: "IBM Plex Mono", monospace;
+        --max: 1240px;
+      }
+
+      * { box-sizing: border-box; }
+
+      body {
+        margin: 0;
+        background:
+          linear-gradient(rgba(168, 255, 77, 0.035) 1px, transparent 1px),
+          linear-gradient(90deg, rgba(168, 255, 77, 0.035) 1px, transparent 1px),
+          var(--bg);
+        background-size: 28px 28px;
+        color: var(--ink);
+        font-family: var(--mono);
+        line-height: 1.6;
+      }
+
+      a { color: inherit; }
+      .shell { width: min(calc(100% - 32px), var(--max)); margin: 16px auto; border: 1px solid var(--line); background: rgba(10, 13, 10, 0.82); }
+
+      .topbar {
+        display: grid;
+        grid-template-columns: 220px 1fr 180px;
+        border-bottom: 1px solid var(--line);
+        font-size: 12px;
+        text-transform: uppercase;
+      }
+
+      .topbar > * { padding: 14px 16px; border-right: 1px solid var(--line); }
+      .topbar > *:last-child { border-right: 0; text-align: right; color: var(--green); }
+      nav { display: flex; gap: 18px; flex-wrap: wrap; }
+      nav a { color: var(--muted); text-decoration: none; }
+      nav a:hover { color: var(--green); }
+
+      .hero {
+        display: grid;
+        grid-template-columns: minmax(0, 1fr) 360px;
+        min-height: calc(100svh - 64px);
+      }
+
+      .hero-main {
+        padding: clamp(32px, 6vw, 72px);
+        border-right: 1px solid var(--line);
+      }
+
+      .prompt {
+        margin-bottom: 18px;
+        color: var(--green);
+        font-size: 13px;
+      }
+
+      h1, h2, h3, p { margin-top: 0; }
+      h1, h2, h3 { font-family: var(--display); line-height: 1; }
+
+      h1 {
+        max-width: 780px;
+        margin-bottom: 24px;
+        font-size: clamp(56px, 9vw, 128px);
+      }
+
+      .lede {
+        max-width: 760px;
+        color: rgba(233, 240, 223, 0.82);
+        font-size: clamp(18px, 2vw, 26px);
+        line-height: 1.4;
+      }
+
+      .commands {
+        display: grid;
+        grid-template-columns: repeat(3, 1fr);
+        gap: 10px;
+        margin-top: 34px;
+      }
+
+      .command {
+        min-height: 92px;
+        padding: 14px;
+        border: 1px solid var(--line);
+        background: var(--panel);
+        color: var(--muted);
+      }
+
+      .command strong {
+        display: block;
+        margin-top: 8px;
+        color: var(--ink);
+        font-family: var(--display);
+        font-size: 20px;
+      }
+
+      .side {
+        background: var(--panel);
+      }
+
+      .status {
+        padding: 18px;
+        border-bottom: 1px solid var(--line);
+      }
+
+      .status span {
+        display: block;
+        color: var(--muted);
+        font-size: 12px;
+        text-transform: uppercase;
+      }
+
+      .status strong {
+        color: var(--green);
+        font-family: var(--display);
+        font-size: 30px;
+      }
+
+      .button {
+        display: inline-flex;
+        min-height: 46px;
+        align-items: center;
+        margin-top: 24px;
+        padding: 0 18px;
+        border: 1px solid var(--green);
+        background: var(--green);
+        color: #081006;
+        font-weight: 700;
+        text-decoration: none;
+      }
+
+      .section {
+        display: grid;
+        grid-template-columns: 220px 1fr;
+        border-top: 1px solid var(--line);
+      }
+
+      .index {
+        padding: 24px 16px;
+        border-right: 1px solid var(--line);
+        color: var(--amber);
+        font-size: 12px;
+        text-transform: uppercase;
+      }
+
+      .content { padding: clamp(30px, 5vw, 62px); }
+      h2 { max-width: 820px; font-size: clamp(36px, 6vw, 76px); }
+      .copy { max-width: 800px; color: rgba(233, 240, 223, 0.82); font-size: 18px; }
+      .muted { color: var(--muted); }
+
+      .grid {
+        display: grid;
+        grid-template-columns: repeat(4, 1fr);
+        gap: 10px;
+        margin-top: 28px;
+      }
+
+      .tile {
+        min-height: 240px;
+        padding: 18px;
+        border: 1px solid var(--line);
+        background: var(--panel-2);
+      }
+
+      .tile code { color: var(--green); }
+      .tile h3 { margin: 22px 0 14px; font-size: 28px; }
+
+      .compare {
+        display: grid;
+        grid-template-columns: 1fr 1fr;
+        gap: 10px;
+        margin-top: 28px;
+      }
+
+      .compare article {
+        min-height: 260px;
+        padding: 22px;
+        border: 1px solid var(--line);
+        background: var(--panel-2);
+      }
+
+      .compare article:last-child { border-color: var(--green); }
+      .compare h3 { font-size: 54px; }
+
+      footer {
+        display: flex;
+        justify-content: space-between;
+        gap: 16px;
+        padding: 18px 16px;
+        border-top: 1px solid var(--line);
+        color: var(--muted);
+        font-size: 12px;
+      }
+
+      @media (max-width: 900px) {
+        .topbar, .hero, .section, .grid, .compare, .commands { grid-template-columns: 1fr; }
+        .topbar > *, .hero-main, .index { border-right: 0; }
+        .hero-main { border-bottom: 1px solid var(--line); }
+      }
+    </style>
+  </head>
+  <body>
+    <div class="shell">
+      <header id="top">
+        <div class="topbar">
+          <a href="#top">Tokamak Games</a>
+          <nav aria-label="Primary navigation">
+            <a href="#abstract">Abstract</a>
+            <a href="#models">Models</a>
+            <a href="#sports">Sports</a>
+            <a href="#layer2">Layer 2</a>
+          </nav>
+          <span>P2G / 2026</span>
+        </div>
+        <div class="hero">
+          <div class="hero-main">
+            <div class="prompt">$ init play-to-glory --preserve-meaning</div>
+            <h1>Tokamak Games</h1>
+            <p class="lede">
+              Most blockchain games chase money. We chase meaning. Play to
+              Glory is a Layer 2 designed to reinstate consequence inside the
+              Magic Circle and make victory, defeat, and contribution permanent.
+            </p>
+            <a class="button" href="#abstract">Execute thesis</a>
+            <div class="commands">
+              <div class="command">core.rule<strong>Play stays pure</strong></div>
+              <div class="command">settlement.record<strong>Outcomes public</strong></div>
+              <div class="command">value.target<strong>Glory over yield</strong></div>
+            </div>
+          </div>
+          <aside class="side">
+            <div class="status"><span>Magic Circle</span><strong>Protected</strong></div>
+            <div class="status"><span>Match result</span><strong>Durable</strong></div>
+            <div class="status"><span>Meta layer</span><strong>Composable</strong></div>
+            <div class="status"><span>Governance</span><strong>Community</strong></div>
+          </aside>
+        </div>
+      </header>
+
+      <main>
+        <section class="section" id="abstract">
+          <span class="index">01 / Abstract</span>
+          <div class="content">
+            <h2>Play itself is the source of value.</h2>
+            <div class="copy">
+              <p>Whereas most blockchain games prioritize monetary rewards under Play-to-Earn, P2G emphasizes intrinsic enjoyment and immersive gameplay by reinstating meaningful risk within the Magic Circle.</p>
+              <p class="muted">Layer 2 is employed as enabling infrastructure to make outcomes durable and public on-chain, and to support sustainable, community-governed growth.</p>
+            </div>
+          </div>
+        </section>
+
+        <section class="section" id="magic">
+          <span class="index">02 / Boundary</span>
+          <div class="content">
+            <h2>The Magic Circle is treated as a boundary layer.</h2>
+            <div class="copy">
+              <p>First articulated by Johan Huizinga, the Magic Circle is the boundary between reality and play. Inside it, ordinary rules are suspended; the game's rules govern behavior and meaning.</p>
+              <p class="muted">Play stays inside. Durable outcomes move outward into public infrastructure.</p>
+            </div>
+          </div>
+        </section>
+
+        <section class="section" id="models">
+          <span class="index">03 / Monetization</span>
+          <div class="content">
+            <h2>Extractive models become explicit failure states.</h2>
+            <div class="grid">
+              <article class="tile"><code>F2P</code><h3>Free-to-Play</h3><p>Friction is engineered, then convenience is sold. Immersion is fragmented.</p></article>
+              <article class="tile"><code>P2W</code><h3>Pay-to-Win</h3><p>Paying players gain disproportionate advantage. Competition loses integrity.</p></article>
+              <article class="tile"><code>P2E</code><h3>Play-to-Earn</h3><p>Players are rewarded financially for activity. Play collapses into labor.</p></article>
+              <article class="tile"><code>P2G</code><h3>Play-to-Glory</h3><p>Blockchain preserves achievement, recognition, and shared meaning.</p></article>
+            </div>
+          </div>
+        </section>
+
+        <section class="section" id="p2g">
+          <span class="index">04 / Compare</span>
+          <div class="content">
+            <h2>From earn to glory.</h2>
+            <div class="compare">
+              <article><code>Play to Earn</code><h3>Money.</h3><p>Play is reduced to labor. Economic incentives dominate design. Markets distort into extraction.</p></article>
+              <article><code>Play to Glory</code><h3>Glory.</h3><p>Play is the pursuit of meaning. Blockchain becomes a medium of recognition and community respect.</p></article>
+            </div>
+          </div>
+        </section>
+
+        <section class="section" id="sports">
+          <span class="index">05 / Sports</span>
+          <div class="content">
+            <h2>Meta-games surround the core instead of invading it.</h2>
+            <div class="copy">
+              <p>In sports, revenue is not extracted from the core game. Broadcasting, tournaments, betting, sponsorships, and merchandise emerge around an inviolable skill-based core.</p>
+              <p class="muted">P2G applies the same architecture to blockchain games: prediction markets, fan memberships, guild economies, and tournaments compose around the record.</p>
+            </div>
+          </div>
+        </section>
+
+        <section class="section" id="risk">
+          <span class="index">06 / Risk</span>
+          <div class="content">
+            <h2>Persistence restores consequence.</h2>
+            <div class="copy">
+              <p>The arcade era was defined by consequence: limited lives and a leaderboard that remembered. P2G restores stakes through persistence.</p>
+              <p class="muted">Victories, defeats, and contributions are recorded on-chain: public, composable, permanent. The goal is to make play matter.</p>
+            </div>
+          </div>
+        </section>
+
+        <section class="section" id="layer2">
+          <span class="index">07 / Layer 2</span>
+          <div class="content">
+            <h2>Protocol properties for real-time games.</h2>
+            <div class="grid">
+              <article class="tile"><code>01</code><h3>Durable</h3><p>Every match outcome is settled on-chain.</p></article>
+              <article class="tile"><code>02</code><h3>Fast</h3><p>Low fees, high throughput, instant confirmation suited to PvP loops.</p></article>
+              <article class="tile"><code>03</code><h3>Composable</h3><p>Records flow into surrounding markets, memberships, guilds, and tournaments.</p></article>
+              <article class="tile"><code>04</code><h3>Governed</h3><p>Community-governed growth. The protocol serves the players.</p></article>
+            </div>
+          </div>
+        </section>
+      </main>
+
+      <footer>
+        <span>Tokamak Games - Protocol Console</span>
+        <a href="#top">Back to top</a>
+      </footer>
+    </div>
+  </body>
+</html>

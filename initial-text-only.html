@@ -1,0 +1,412 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <title>Tokamak Games - Initial Text Version</title>
+    <meta
+      name="description"
+      content="Tokamak Games builds Play to Glory (P2G): a Layer 2 protocol that reinstates meaningful risk within the Magic Circle of blockchain games."
+    />
+    <style>
+      :root {
+        --canvas: #ffffff;
+        --ink: #000000;
+        --muted: #999999;
+        --max: 900px;
+      }
+
+      * {
+        box-sizing: border-box;
+        margin: 0;
+        padding: 0;
+      }
+
+      html,
+      body {
+        background: var(--canvas);
+        color: var(--ink);
+        font-family: ui-sans-serif, system-ui, sans-serif;
+        font-size: 16px;
+        line-height: 1.6;
+      }
+
+      body {
+        padding: 72px 32px 135px;
+      }
+
+      .page {
+        max-width: var(--max);
+        margin: 0 auto;
+      }
+
+      h1 {
+        font-size: 40px;
+        font-weight: 300;
+        line-height: 1.2;
+        margin-bottom: 9px;
+      }
+
+      .title-meta {
+        color: var(--muted);
+        font-size: 18px;
+        line-height: 1.2;
+        margin-bottom: 135px;
+      }
+
+      .lede {
+        max-width: 720px;
+        margin-bottom: 135px;
+        font-size: 20px;
+        line-height: 1.2;
+      }
+
+      section {
+        margin-bottom: 72px;
+      }
+
+      h2 {
+        font-size: 28px;
+        font-weight: 700;
+        line-height: 1.25;
+        margin-bottom: 25px;
+      }
+
+      h3 {
+        margin: 25px 0 9px;
+        font-size: 16px;
+        font-weight: 700;
+        line-height: 1.25;
+      }
+
+      p {
+        max-width: 640px;
+        margin-bottom: 25px;
+      }
+
+      .meta,
+      .gray {
+        color: var(--muted);
+      }
+
+      .models {
+        width: min(100%, 640px);
+        margin: 32px 0 54px;
+      }
+
+      .model {
+        padding: 25px 0;
+        border-top: 1px solid var(--ink);
+      }
+
+      .model:last-child {
+        border-bottom: 1px solid var(--ink);
+      }
+
+      .code {
+        display: block;
+        color: var(--muted);
+        font-size: 14px;
+        font-weight: 700;
+        margin-bottom: 9px;
+        text-transform: uppercase;
+      }
+
+      .p2g-principle,
+      .list li {
+        display: grid;
+        grid-template-columns: 120px 1fr;
+        gap: 32px;
+        padding: 25px 0;
+        border-top: 1px solid var(--ink);
+      }
+
+      .p2g-principle {
+        width: min(100%, 640px);
+        border-bottom: 1px solid var(--ink);
+      }
+
+      .term {
+        font-weight: 700;
+      }
+
+      .list {
+        max-width: 720px;
+        list-style: none;
+      }
+
+      .list li:last-child {
+        border-bottom: 1px solid var(--ink);
+      }
+
+      .compare {
+        display: grid;
+        grid-template-columns: 1fr 1fr;
+        gap: 54px;
+        margin-top: 32px;
+      }
+
+      .compare h3 {
+        margin-top: 0;
+        font-size: 22px;
+      }
+
+      .tag {
+        display: block;
+        color: var(--muted);
+        font-size: 14px;
+        font-weight: 700;
+        margin-bottom: 9px;
+        text-transform: uppercase;
+      }
+
+      footer {
+        display: flex;
+        justify-content: space-between;
+        gap: 24px;
+        margin-top: 72px;
+        padding-top: 25px;
+        border-top: 1px solid var(--ink);
+        color: var(--muted);
+      }
+
+      footer a {
+        color: var(--muted);
+        text-decoration: none;
+      }
+
+      footer a:hover {
+        color: var(--ink);
+      }
+
+      @media (max-width: 720px) {
+        body {
+          padding: 54px 25px 72px;
+        }
+
+        h1 {
+          font-size: 32px;
+        }
+
+        h2 {
+          font-size: 24px;
+        }
+
+        .title-meta,
+        .lede,
+        section {
+          margin-bottom: 54px;
+        }
+
+        .p2g-principle,
+        .list li,
+        .compare {
+          grid-template-columns: 1fr;
+          gap: 9px;
+        }
+
+        footer {
+          flex-direction: column;
+          gap: 9px;
+        }
+      }
+    </style>
+  </head>
+  <body>
+    <div class="page">
+      <h1>Tokamak Games</h1>
+      <p class="title-meta">Play to Glory - a Layer 2 for blockchain games - 2026</p>
+
+      <p class="lede">
+        Most blockchain games chase money. We chase meaning. Tokamak Games is
+        building Play to Glory: a Layer 2 designed to reinstate consequence
+        inside the Magic Circle, and to make victory, defeat, and contribution
+        permanent.
+      </p>
+
+      <section id="abstract">
+        <h2>Abstract</h2>
+        <p>
+          Whereas most blockchain games prioritize monetary rewards under
+          Play-to-Earn, P2G emphasizes intrinsic enjoyment and immersive
+          gameplay by reinstating meaningful risk within the Magic Circle.
+        </p>
+        <p>
+          Layer 2 is employed as enabling infrastructure - to make outcomes
+          durable and public on-chain, and to support sustainable,
+          community-governed growth.
+        </p>
+      </section>
+
+      <section id="magic-circle">
+        <h2>The Magic Circle</h2>
+        <p>
+          First articulated by Johan Huizinga, the Magic Circle is the boundary
+          between reality and play. Inside it, the ordinary rules of the world
+          are suspended; the game's rules alone govern behavior and meaning.
+        </p>
+        <p class="meta">
+          P2G treats the Magic Circle as a boundary layer: play stays inside,
+          while durable outcomes move outward into public infrastructure.
+        </p>
+        <p>
+          Within this protected space, players develop skill, experience
+          achievement, and cultivate self-respect. Cooperation and competition
+          produce camaraderie, belonging, and shared purpose that often outlast
+          the match itself.
+        </p>
+      </section>
+
+      <section id="models">
+        <h2>Models of monetization.</h2>
+        <p class="meta">
+          How the gaming industry has historically encroached upon the Magic
+          Circle.
+        </p>
+        <div class="models">
+          <div class="model">
+            <span class="code">F2P</span>
+            <h3>Free-to-Play</h3>
+            <p>
+              Revenue is extracted through purchases or ads.
+              <span class="gray">
+                Friction is engineered, then convenience is sold. Immersion is
+                fragmented.
+              </span>
+            </p>
+          </div>
+          <div class="model">
+            <span class="code">P2W</span>
+            <h3>Pay-to-Win</h3>
+            <p>
+              Paying players gain disproportionate advantage.
+              <span class="gray">
+                Competition loses integrity. Non-spenders are alienated.
+              </span>
+            </p>
+          </div>
+          <div class="model">
+            <span class="code">P2E</span>
+            <h3>Play-to-Earn</h3>
+            <p>
+              Players are rewarded financially for activity.
+              <span class="gray">
+                Play collapses into labor. Bots replace strategy. Creativity
+                narrows.
+              </span>
+            </p>
+          </div>
+        </div>
+        <div class="p2g-principle">
+          <span class="term">P2G</span>
+          <p>
+            Play to Glory. Play itself is the source of value.
+            <span class="gray">
+              Blockchain preserves achievement, recognition, and shared meaning
+              without compromising the core game space.
+            </span>
+          </p>
+        </div>
+      </section>
+
+      <section id="p2g">
+        <h2>From Earn to Glory.</h2>
+        <div class="compare">
+          <div>
+            <span class="tag">Play to Earn</span>
+            <h3>Money.</h3>
+            <p>
+              Play is reduced to labor. Economic incentives dominate design.
+              Repetitive tasks displace creativity. Markets distort into
+              inflation, imbalance, and extraction.
+            </p>
+          </div>
+          <div>
+            <span class="tag">Play to Glory</span>
+            <h3>Glory.</h3>
+            <p>
+              Play is the pursuit of meaning. Blockchain becomes a medium of
+              recognition, preserving achievement and legitimizing community
+              respect. Reputation outweighs currency.
+            </p>
+          </div>
+        </div>
+      </section>
+
+      <section id="sports">
+        <h2>Borrowed from sports.</h2>
+        <p>
+          In sports, revenue is not extracted from the core game. The core
+          remains skill-based and inviolable. Meta-games emerge around it -
+          broadcasting, tournaments, betting, sponsorships, merchandise.
+        </p>
+        <p>
+          P2G applies the same architecture to blockchain games. The Magic
+          Circle stays pure. Capital flows through the meta-games that surround
+          it: prediction markets, fan-driven memberships, guild economies, and
+          other forms of capital-based play.
+        </p>
+        <p class="meta">
+          The intrinsic enjoyment of the core drives interest in the meta-games.
+          The expansion of the meta-games reinforces engagement with the core.
+          Both layers co-evolve.
+        </p>
+      </section>
+
+      <section id="risk">
+        <h2>The return of risk.</h2>
+        <p>
+          The arcade era was defined by consequence. A limited number of lives.
+          A leaderboard that remembered. Home consoles diluted the stakes;
+          defeat lost its weight, and victory lost its meaning.
+        </p>
+        <p>
+          P2G restores stakes through persistence. Victories, defeats, and
+          contributions are recorded on-chain - public, composable, permanent.
+          Each match resonates beyond itself: into reputation, tournaments, and
+          the meta-games that depend on the record.
+        </p>
+        <p>The goal is not to maximize return. The goal is to make play matter.</p>
+      </section>
+
+      <section id="layer2">
+        <h2>The Layer 2.</h2>
+        <ul class="list">
+          <li>
+            <span class="term">Durable</span>
+            <span>
+              Every match outcome - win, loss, contribution - is settled
+              on-chain. The record is public, composable, and permanent.
+            </span>
+          </li>
+          <li>
+            <span class="term">Fast</span>
+            <span>
+              Optimized for the cadence of real-time play. Low fees, high
+              throughput, instant confirmation suited to PvP loops.
+            </span>
+          </li>
+          <li>
+            <span class="term">Composable</span>
+            <span>
+              Records flow into surrounding meta-games - prediction markets,
+              memberships, guilds, tournaments - without compromising the core.
+            </span>
+          </li>
+          <li>
+            <span class="term">Governed</span>
+            <span>
+              Community-governed growth. The protocol serves the players, not
+              the other way around.
+            </span>
+          </li>
+        </ul>
+      </section>
+
+      <footer>
+        <span>Tokamak Games - Play to Glory - 2026</span>
+        <span><a href="#abstract">Read the paper</a></span>
+      </footer>
+    </div>
+  </body>
+</html>

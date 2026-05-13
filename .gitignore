@@ -1,0 +1,11 @@
+# OMC (oh-my-claudecode) local state
+.omc/
+
+# OS
+.DS_Store
+Thumbs.db
+
+# Editor
+.vscode/
+.idea/
+*.swp

@@ -1,0 +1,549 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <title>Tokamak Games - Initial Text Version</title>
+    <meta
+      name="description"
+      content="Tokamak Games builds Play to Glory (P2G): a Layer 2 protocol that reinstates meaningful risk within the Magic Circle of blockchain games."
+    />
+    <style>
+      :root {
+        --canvas: #ffffff;
+        --ink: #000000;
+        --muted: #999999;
+        --max: 900px;
+      }
+
+      * {
+        box-sizing: border-box;
+        margin: 0;
+        padding: 0;
+      }
+
+      html,
+      body {
+        background: var(--canvas);
+        color: var(--ink);
+        font-family: ui-sans-serif, system-ui, sans-serif;
+        font-size: 16px;
+        line-height: 1.6;
+      }
+
+      body {
+        padding: 72px 32px 135px;
+      }
+
+      .page {
+        max-width: var(--max);
+        margin: 0 auto;
+      }
+
+      h1 {
+        font-size: 40px;
+        font-weight: 300;
+        line-height: 1.2;
+        margin-bottom: 9px;
+      }
+
+      .title-meta {
+        color: var(--muted);
+        font-size: 18px;
+        line-height: 1.2;
+        margin-bottom: 40px;
+      }
+
+      .lede {
+        max-width: 720px;
+        margin-bottom: 72px;
+        font-size: 20px;
+        line-height: 1.2;
+      }
+
+      section {
+        margin-bottom: 72px;
+      }
+
+      .game-list {
+        width: min(100%, 720px);
+        border-top: 1px solid var(--ink);
+      }
+
+      .game-item {
+        display: grid;
+        grid-template-columns: 84px 1fr auto;
+        gap: 24px;
+        align-items: center;
+        padding: 25px 0;
+        border-bottom: 1px solid var(--ink);
+      }
+
+      .game-logo {
+        width: 84px;
+        height: 84px;
+        object-fit: contain;
+      }
+
+      .game-content h3 {
+        margin: 0 0 9px;
+        font-size: 22px;
+      }
+
+      .game-content p {
+        margin-bottom: 9px;
+      }
+
+      .game-meta {
+        color: var(--muted);
+        font-size: 14px;
+        line-height: 1.4;
+      }
+
+      .game-link {
+        color: var(--ink);
+        font-size: 14px;
+        font-weight: 700;
+        text-decoration: none;
+        white-space: nowrap;
+      }
+
+      .game-link:hover {
+        color: var(--muted);
+      }
+
+      .section-note {
+        color: var(--muted);
+        font-size: 16px;
+      }
+
+      .meta-game-grid {
+        display: grid;
+        grid-template-columns: repeat(2, minmax(0, 1fr));
+        gap: 1px;
+        width: min(100%, 720px);
+        background: var(--ink);
+        border: 1px solid var(--ink);
+      }
+
+      .meta-game-card {
+        min-height: 210px;
+        padding: 20px;
+        background: var(--canvas);
+      }
+
+      .meta-game-top {
+        display: flex;
+        justify-content: space-between;
+        gap: 16px;
+        align-items: flex-start;
+        margin-bottom: 24px;
+      }
+
+      .meta-game-icon {
+        display: grid;
+        width: 42px;
+        height: 42px;
+        place-items: center;
+        border: 1px solid var(--ink);
+      }
+
+      .meta-game-icon svg {
+        width: 24px;
+        height: 24px;
+        stroke: var(--ink);
+        stroke-width: 1.8;
+        fill: none;
+      }
+
+      .status-badge {
+        color: var(--muted);
+        font-size: 12px;
+        font-weight: 700;
+        letter-spacing: 0.02em;
+        text-transform: uppercase;
+      }
+
+      .meta-game-card h3 {
+        margin: 0 0 9px;
+        font-size: 18px;
+      }
+
+      .meta-game-card p {
+        margin-bottom: 0;
+        color: var(--muted);
+        font-size: 15px;
+        line-height: 1.45;
+      }
+
+      h2 {
+        font-size: 28px;
+        font-weight: 700;
+        line-height: 1.25;
+        margin-bottom: 25px;
+      }
+
+      h3 {
+        margin: 25px 0 9px;
+        font-size: 16px;
+        font-weight: 700;
+        line-height: 1.25;
+      }
+
+      p {
+        max-width: 640px;
+        margin-bottom: 25px;
+      }
+
+      .meta,
+      .gray {
+        color: var(--muted);
+      }
+
+      .models {
+        width: min(100%, 640px);
+        margin: 32px 0 54px;
+      }
+
+      .model {
+        padding: 25px 0;
+        border-top: 1px solid var(--ink);
+      }
+
+      .model:last-child {
+        border-bottom: 1px solid var(--ink);
+      }
+
+      .code {
+        display: block;
+        color: var(--muted);
+        font-size: 14px;
+        font-weight: 700;
+        margin-bottom: 9px;
+        text-transform: uppercase;
+      }
+
+      .p2g-principle,
+      .list li {
+        display: grid;
+        grid-template-columns: 120px 1fr;
+        gap: 32px;
+        padding: 25px 0;
+        border-top: 1px solid var(--ink);
+      }
+
+      .p2g-principle {
+        width: min(100%, 640px);
+        border-bottom: 1px solid var(--ink);
+      }
+
+      .term {
+        font-weight: 700;
+      }
+
+      .list {
+        max-width: 720px;
+        list-style: none;
+      }
+
+      .list li:last-child {
+        border-bottom: 1px solid var(--ink);
+      }
+
+      .compare {
+        display: grid;
+        grid-template-columns: 1fr 1fr;
+        gap: 54px;
+        margin-top: 32px;
+      }
+
+      .compare h3 {
+        margin-top: 0;
+        font-size: 22px;
+      }
+
+      .tag {
+        display: block;
+        color: var(--muted);
+        font-size: 14px;
+        font-weight: 700;
+        margin-bottom: 9px;
+        text-transform: uppercase;
+      }
+
+      footer {
+        display: flex;
+        justify-content: space-between;
+        gap: 24px;
+        margin-top: 72px;
+        padding-top: 25px;
+        border-top: 1px solid var(--ink);
+        color: var(--muted);
+      }
+
+      footer a {
+        color: var(--muted);
+        text-decoration: none;
+      }
+
+      footer a:hover {
+        color: var(--ink);
+      }
+
+      @media (max-width: 720px) {
+        body {
+          padding: 54px 25px 72px;
+        }
+
+        h1 {
+          font-size: 32px;
+        }
+
+        h2 {
+          font-size: 24px;
+        }
+
+        .lede,
+        section {
+          margin-bottom: 54px;
+        }
+
+        .title-meta {
+          margin-bottom: 36px;
+        }
+
+        .p2g-principle,
+        .list li,
+        .game-item,
+        .meta-game-grid,
+        .compare {
+          grid-template-columns: 1fr;
+          gap: 9px;
+        }
+
+        .game-logo {
+          width: 72px;
+          height: 72px;
+        }
+
+        footer {
+          flex-direction: column;
+          gap: 9px;
+        }
+      }
+    </style>
+  </head>
+  <body>
+    <div class="page">
+      <h1>Tokamak Games</h1>
+      <p class="title-meta">Play to Glory - a Layer 2 for blockchain games</p>
+
+      <p class="lede">
+        Most blockchain games chase money. We chase meaning. Tokamak Games is
+        building Play to Glory: a Layer 2 designed to reinstate consequence
+        inside the Magic Circle, and to make victory, defeat, and contribution
+        permanent.
+      </p>
+
+      <section id="core-games">
+        <h2>Core Games</h2>
+        <div class="game-list">
+          <article class="game-item">
+            <img
+              class="game-logo"
+              src="assets/blockball-logo.png"
+              alt="blockball logo"
+            />
+            <div class="game-content">
+              <h3>blockball</h3>
+              <p>
+                Fast top-down puck soccer for browser rivals. Real-time server
+                physics, 2 minute rooms, and chain-ready match receipts.
+              </p>
+              <div class="game-meta">
+                HaxBall-like 2D physics sports prototype / server-authoritative
+                matches / result ledger
+              </div>
+            </div>
+            <a class="game-link" href="https://blockball.fly.dev/">Visit site</a>
+          </article>
+          <article class="game-item">
+            <img
+              class="game-logo"
+              src="assets/rivai-logo.svg"
+              alt="RIVAI logo"
+            />
+            <div class="game-content">
+              <h3>RIVAI</h3>
+              <p>
+                A GunZ-inspired third-person action game built around high-speed
+                movement, wall runs, aerial duels, and sword-to-gun combat.
+              </p>
+              <div class="game-meta">
+                Arena action / movement mastery / browser prototype
+              </div>
+            </div>
+            <a class="game-link" href="https://gunz-mac.vercel.app/">Visit site</a>
+          </article>
+        </div>
+      </section>
+
+      <section id="meta-games">
+        <h2>Meta Games</h2>
+        <p class="section-note">
+          Surrounding systems that grow around the skill-based core without
+          compromising play.
+        </p>
+        <div class="meta-game-grid">
+          <article class="meta-game-card">
+            <div class="meta-game-top">
+              <span class="meta-game-icon" aria-hidden="true">
+                <svg viewBox="0 0 24 24">
+                  <path d="M5 4h14v4c0 4.5-2.9 8.2-7 9.2C7.9 16.2 5 12.5 5 8V4Z"/>
+                  <path d="M9 21h6"/>
+                  <path d="M12 17v4"/>
+                </svg>
+              </span>
+              <span class="status-badge">Coming Soon</span>
+            </div>
+            <h3>Tournaments</h3>
+            <p>
+              Brackets, seasons, qualifiers, and prize paths based on durable
+              match records from core games.
+            </p>
+          </article>
+
+          <article class="meta-game-card">
+            <div class="meta-game-top">
+              <span class="meta-game-icon" aria-hidden="true">
+                <svg viewBox="0 0 24 24">
+                  <path d="M4 17l5-5 4 4 7-8"/>
+                  <path d="M15 8h5v5"/>
+                </svg>
+              </span>
+              <span class="status-badge">Coming Soon</span>
+            </div>
+            <h3>Prediction Markets</h3>
+            <p>
+              Markets around matches, rivalries, and tournament outcomes,
+              separated from the rules of play.
+            </p>
+          </article>
+
+          <article class="meta-game-card">
+            <div class="meta-game-top">
+              <span class="meta-game-icon" aria-hidden="true">
+                <svg viewBox="0 0 24 24">
+                  <path d="M7 10a4 4 0 1 1 8 0"/>
+                  <path d="M3 21a8 8 0 0 1 16 0"/>
+                  <path d="M17 6l4 4"/>
+                  <path d="M21 6l-4 4"/>
+                </svg>
+              </span>
+              <span class="status-badge">Coming Soon</span>
+            </div>
+            <h3>Guild Economies</h3>
+            <p>
+              Player groups, training squads, shared reputation, and contribution
+              systems for long-lived communities.
+            </p>
+          </article>
+
+          <article class="meta-game-card">
+            <div class="meta-game-top">
+              <span class="meta-game-icon" aria-hidden="true">
+                <svg viewBox="0 0 24 24">
+                  <path d="M12 3l2.8 5.7 6.2.9-4.5 4.4 1.1 6.2L12 17.2 6.4 20.2 7.5 14 3 9.6l6.2-.9L12 3Z"/>
+                </svg>
+              </span>
+              <span class="status-badge">Coming Soon</span>
+            </div>
+            <h3>Fan Memberships</h3>
+            <p>
+              Supporter passes, team identities, access rights, and rituals that
+              let spectators participate.
+            </p>
+          </article>
+
+          <article class="meta-game-card">
+            <div class="meta-game-top">
+              <span class="meta-game-icon" aria-hidden="true">
+                <svg viewBox="0 0 24 24">
+                  <path d="M4 15h4l8-8 4 4-8 8H4v-4Z"/>
+                  <path d="M14 9l4 4"/>
+                </svg>
+              </span>
+              <span class="status-badge">Coming Soon</span>
+            </div>
+            <h3>Sponsorships</h3>
+            <p>
+              Sponsor quests, creator support, team patronage, and impact-based
+              funding for valuable contributors.
+            </p>
+          </article>
+
+          <article class="meta-game-card">
+            <div class="meta-game-top">
+              <span class="meta-game-icon" aria-hidden="true">
+                <svg viewBox="0 0 24 24">
+                  <path d="M5 4h14v6H5z"/>
+                  <path d="M7 10v10"/>
+                  <path d="M17 10v10"/>
+                  <path d="M4 20h16"/>
+                </svg>
+              </span>
+              <span class="status-badge">Coming Soon</span>
+            </div>
+            <h3>Broadcasting</h3>
+            <p>
+              Match streams, replay rooms, highlight records, and spectator
+              layers that turn great play into culture.
+            </p>
+          </article>
+
+          <article class="meta-game-card">
+            <div class="meta-game-top">
+              <span class="meta-game-icon" aria-hidden="true">
+                <svg viewBox="0 0 24 24">
+                  <path d="M6 5h12l2 5-8 10L4 10l2-5Z"/>
+                  <path d="M4 10h16"/>
+                  <path d="M9 5l3 15 3-15"/>
+                </svg>
+              </span>
+              <span class="status-badge">Coming Soon</span>
+            </div>
+            <h3>Merchandise</h3>
+            <p>
+              Digital and physical goods tied to teams, players, seasons, and
+              achievements without selling power.
+            </p>
+          </article>
+
+          <article class="meta-game-card">
+            <div class="meta-game-top">
+              <span class="meta-game-icon" aria-hidden="true">
+                <svg viewBox="0 0 24 24">
+                  <path d="M5 20V8"/>
+                  <path d="M12 20V4"/>
+                  <path d="M19 20v-9"/>
+                  <path d="M3 20h18"/>
+                </svg>
+              </span>
+              <span class="status-badge">Coming Soon</span>
+            </div>
+            <h3>Glory Rankings</h3>
+            <p>
+              Public reputation, contribution records, and leaderboard histories
+              that make victory and defeat matter.
+            </p>
+          </article>
+        </div>
+      </section>
+
+      <footer>
+        <span>Tokamak Games - Play to Glory</span>
+        <span><a href="#core-games">Core Games</a> / <a href="#meta-games">Meta Games</a></span>
+      </footer>
+    </div>
+  </body>
+</html>
