@@ -1,0 +1,24 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 512 512" role="img" aria-label="RIVAI logo">
+  <defs>
+    <linearGradient id="gold" x1="28%" y1="8%" x2="78%" y2="96%">
+      <stop offset="0" stop-color="#ffb31d"/>
+      <stop offset="0.48" stop-color="#ffe46b"/>
+      <stop offset="1" stop-color="#c57a14"/>
+    </linearGradient>
+    <filter id="glow" x="-35%" y="-35%" width="170%" height="170%">
+      <feGaussianBlur stdDeviation="14" result="blur"/>
+      <feColorMatrix in="blur" type="matrix" values="1 0 0 0 1 0 0.66 0 0 0.62 0 0 0 0 0.12 0 0 0 1 0"/>
+      <feMerge>
+        <feMergeNode/>
+        <feMergeNode in="SourceGraphic"/>
+      </feMerge>
+    </filter>
+  </defs>
+  <g filter="url(#glow)">
+    <path d="M122 128h164c54 0 88 33 88 80 0 35-18 62-51 75l75 104h-90l-64-91h-42v91h-80V128Zm80 67v38h79c8 0 13-2 13-19 0-16-6-19-16-19h-76Z" fill="#17110a" opacity="0.9" transform="translate(13 16)"/>
+    <path d="M112 119h164c54 0 88 33 88 80 0 35-18 62-51 75l75 104h-90l-64-91h-42v91h-80V119Zm80 67v38h79c8 0 13-2 13-19 0-16-6-19-16-19h-76Z" fill="url(#gold)" stroke="#1c1307" stroke-width="7" stroke-linejoin="round"/>
+    <path d="M129 139h143c42 0 68 21 68 58 0 29-15 49-46 60l58 82" fill="none" stroke="#fff0a6" stroke-width="5" stroke-linecap="round" opacity="0.78"/>
+    <rect x="373" y="162" width="50" height="50" fill="url(#gold)" stroke="#1c1307" stroke-width="7"/>
+    <rect x="384" y="173" width="28" height="28" fill="none" stroke="#fff0a6" stroke-width="4" opacity="0.85"/>
+  </g>
+</svg>

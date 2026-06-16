@@ -1,0 +1,2137 @@
+/* =============================================================
+   TOKAMAK GAMES — Play to Glory
+   Design system: White Arena → Black Ledger
+   ============================================================= */
+
+/* ---------- Tokens ---------- */
+:root {
+  /* Brand */
+  --yellow: #ffd400;
+  --yellow-deep: #f5c400;
+  --yellow-ink: #1c1a08;
+  --ember: #ff5a1e;
+  --ember-soft: #ff7a3c;
+
+  /* Light (paper / arena) */
+  --paper: #e9e9e7;
+  --paper-2: #f2f1ee;
+  --paper-edge: #d8d8d4;
+  --ink: #0b0b0c;
+  --ink-soft: #2a2a2c;
+  --ink-mute: #5f5f5c;
+
+  /* Dark (ledger) */
+  --void: #0a0a0b;
+  --void-2: #101012;
+  --panel: #141417;
+  --panel-2: #181820;
+  --line: rgba(255, 255, 255, 0.09);
+  --line-strong: rgba(255, 255, 255, 0.16);
+  --snow: #f4f4f2;
+  --snow-mute: #9b9ba0;
+  --snow-dim: #8a8a90; /* AA-compliant (~5:1) for informational small text on dark */
+
+  /* Type */
+  --f-display: "Orbitron", "Arial Narrow", sans-serif;
+  --f-hud: "Orbitron", ui-sans-serif, sans-serif;
+  --f-body: "Inter", ui-sans-serif, system-ui, sans-serif;
+  --f-mono: ui-monospace, "SFMono-Regular", Menlo, monospace;
+
+  /* Layout */
+  --maxw: 1240px;
+  --gut: clamp(20px, 5vw, 64px);
+  --radius: 2px;
+
+  --ease: cubic-bezier(0.22, 1, 0.36, 1);
+  --nav-h: 72px;
+}
+
+/* ---------- Reset ---------- */
+*,
+*::before,
+*::after {
+  box-sizing: border-box;
+  margin: 0;
+  padding: 0;
+}
+
+html {
+  scroll-behavior: smooth;
+  scroll-padding-top: calc(var(--nav-h) + 20px);
+  -webkit-text-size-adjust: 100%;
+}
+
+body {
+  background: var(--void);
+  color: var(--snow);
+  font-family: var(--f-body);
+  font-size: 16px;
+  line-height: 1.6;
+  -webkit-font-smoothing: antialiased;
+  text-rendering: optimizeLegibility;
+  overflow-x: hidden;
+}
+
+img,
+video {
+  display: block;
+  max-width: 100%;
+}
+
+a {
+  color: inherit;
+  text-decoration: none;
+}
+
+ul {
+  list-style: none;
+}
+
+::selection {
+  background: var(--yellow);
+  color: var(--ink);
+}
+
+:focus-visible {
+  outline: 2px solid var(--yellow);
+  outline-offset: 3px;
+}
+/* Dark yellow ring is invisible on the light hero/nav — use ink there */
+.hero :focus-visible,
+.nav[data-theme="light"] :focus-visible {
+  outline-color: var(--ink);
+}
+
+.container {
+  width: 100%;
+  max-width: var(--maxw);
+  margin-inline: auto;
+  padding-inline: var(--gut);
+}
+
+.section {
+  position: relative;
+  padding-block: clamp(80px, 11vw, 160px);
+}
+
+.skip-link {
+  position: fixed;
+  top: -100px;
+  left: 16px;
+  z-index: 200;
+  background: var(--yellow);
+  color: var(--ink);
+  padding: 10px 16px;
+  font-family: var(--f-hud);
+  font-weight: 700;
+  border-radius: var(--radius);
+}
+.skip-link:focus {
+  top: 16px;
+}
+
+/* ---------- Texture overlays ---------- */
+.fx-grain,
+.fx-scanlines {
+  position: fixed;
+  inset: 0;
+  pointer-events: none;
+  z-index: 150;
+}
+.fx-grain {
+  opacity: 0.05;
+  mix-blend-mode: overlay;
+  background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='160' height='160'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.85' numOctaves='2' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)'/%3E%3C/svg%3E");
+}
+.fx-scanlines {
+  opacity: 0.35;
+  background: repeating-linear-gradient(
+    to bottom,
+    rgba(0, 0, 0, 0) 0,
+    rgba(0, 0, 0, 0) 2px,
+    rgba(0, 0, 0, 0.05) 3px
+  );
+}
+
+/* ---------- Kicker / labels ---------- */
+.kicker {
+  display: inline-flex;
+  align-items: center;
+  gap: 12px;
+  font-family: var(--f-hud);
+  font-weight: 600;
+  font-size: 11px;
+  letter-spacing: 0.14em;
+  text-transform: uppercase;
+}
+.kicker--ink {
+  color: var(--ink-soft);
+}
+.kicker--accent {
+  color: var(--snow-mute);
+}
+.kicker__no {
+  color: var(--yellow);
+  border: 1px solid var(--yellow);
+  padding: 2px 7px;
+  letter-spacing: 0.1em;
+  clip-path: polygon(0 0, 100% 0, 100% 70%, 88% 100%, 0 100%);
+}
+
+/* ---------- Buttons ---------- */
+.btn {
+  --bw: 1px;
+  position: relative;
+  display: inline-flex;
+  align-items: center;
+  gap: 10px;
+  font-family: var(--f-hud);
+  font-weight: 700;
+  font-size: 12px;
+  letter-spacing: 0.03em;
+  text-transform: uppercase;
+  padding: 13px 20px;
+  cursor: pointer;
+  border: var(--bw) solid transparent;
+  clip-path: polygon(0 0, 100% 0, 100% 64%, calc(100% - 12px) 100%, 0 100%);
+  transition: transform 0.2s var(--ease), background 0.2s var(--ease),
+    color 0.2s var(--ease), box-shadow 0.2s var(--ease);
+  white-space: nowrap;
+}
+.btn__arrow {
+  transition: transform 0.25s var(--ease);
+}
+.btn:hover {
+  transform: translateY(-2px);
+}
+.btn:hover .btn__arrow {
+  transform: translate(3px, -1px);
+}
+.btn--lg {
+  padding: 16px 28px;
+  font-size: 13px;
+}
+.btn--sm {
+  padding: 10px 15px;
+  font-size: 11px;
+}
+.btn--block {
+  width: 100%;
+  justify-content: center;
+}
+
+.btn--solid {
+  background: var(--yellow);
+  color: var(--ink);
+  box-shadow: 0 0 0 0 rgba(255, 212, 0, 0.5);
+}
+.btn--solid:hover {
+  background: #ffde33;
+  box-shadow: 0 14px 40px -12px rgba(255, 212, 0, 0.65);
+}
+.btn--ghost {
+  background: transparent;
+  color: var(--snow);
+  border-color: var(--line-strong);
+}
+.btn--ghost:hover {
+  border-color: var(--yellow);
+  color: var(--yellow);
+}
+.btn--ghost-ink {
+  background: rgba(11, 11, 12, 0.06);
+  color: var(--ink);
+  border-color: rgba(11, 11, 12, 0.4);
+  backdrop-filter: blur(4px);
+}
+.btn--ghost-ink:hover {
+  background: var(--ink);
+  color: var(--paper);
+  border-color: var(--ink);
+}
+
+/* =============================================================
+   NAV
+   ============================================================= */
+.nav {
+  position: fixed;
+  inset: 0 0 auto 0;
+  z-index: 120;
+  height: var(--nav-h);
+  display: flex;
+  align-items: center;
+  transition: background 0.4s var(--ease), border-color 0.4s var(--ease),
+    backdrop-filter 0.4s var(--ease), height 0.3s var(--ease);
+  border-bottom: 1px solid transparent;
+}
+.nav__inner {
+  width: 100%;
+  max-width: var(--maxw);
+  margin-inline: auto;
+  padding-inline: var(--gut);
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 24px;
+}
+
+/* themed nav */
+.nav[data-theme="light"] {
+  color: var(--ink);
+}
+.nav[data-theme="dark"] {
+  color: var(--snow);
+}
+.nav.is-stuck[data-theme="light"] {
+  background: rgba(233, 233, 231, 0.82);
+  backdrop-filter: blur(14px) saturate(1.2);
+  border-bottom-color: rgba(11, 11, 12, 0.12);
+}
+.nav.is-stuck[data-theme="dark"] {
+  background: rgba(10, 10, 11, 0.72);
+  backdrop-filter: blur(14px) saturate(1.2);
+  border-bottom-color: var(--line);
+}
+
+.brand {
+  display: inline-flex;
+  align-items: center;
+  gap: 12px;
+}
+.brand__mark {
+  width: 46px;
+  height: auto;
+  filter: drop-shadow(0 2px 6px rgba(0, 0, 0, 0.25));
+}
+.brand__word {
+  display: flex;
+  flex-direction: column;
+  line-height: 1;
+}
+.brand__name {
+  font-family: var(--f-hud);
+  font-weight: 700;
+  font-size: 13.5px;
+  letter-spacing: 0.02em;
+  text-transform: uppercase;
+}
+.brand__sub {
+  font-family: var(--f-hud);
+  font-weight: 500;
+  font-size: 9.5px;
+  letter-spacing: 0.16em;
+  text-transform: uppercase;
+  color: var(--yellow-deep);
+  margin-top: 4px;
+}
+.nav[data-theme="dark"] .brand__sub {
+  color: var(--yellow);
+}
+/* yellow brand sub is illegible on the light hero nav -> ink */
+.nav[data-theme="light"] .brand__sub {
+  color: var(--ink-soft);
+}
+
+.nav__links {
+  display: flex;
+  gap: 26px;
+  font-family: var(--f-hud);
+  font-weight: 600;
+  font-size: 12px;
+  letter-spacing: 0.04em;
+  text-transform: uppercase;
+}
+.nav__links a {
+  position: relative;
+  opacity: 0.78;
+  transition: opacity 0.2s, color 0.2s;
+  padding-block: 6px;
+}
+.nav__links a::after {
+  content: "";
+  position: absolute;
+  left: 0;
+  bottom: 0;
+  width: 0;
+  height: 2px;
+  background: var(--yellow);
+  transition: width 0.25s var(--ease);
+}
+.nav__links a:hover {
+  opacity: 1;
+}
+.nav__links a:hover::after {
+  width: 100%;
+}
+
+.nav__cta {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+}
+
+.nav__toggle {
+  display: none;
+  flex-direction: column;
+  justify-content: center;
+  gap: 5px;
+  width: 44px;
+  height: 44px;
+  background: none;
+  border: none;
+  cursor: pointer;
+}
+.nav__toggle span {
+  display: block;
+  height: 2px;
+  width: 24px;
+  background: currentColor;
+  transition: transform 0.3s var(--ease), opacity 0.2s;
+}
+.nav.is-open .nav__toggle span:nth-child(1) {
+  transform: translateY(7px) rotate(45deg);
+}
+.nav.is-open .nav__toggle span:nth-child(2) {
+  opacity: 0;
+}
+.nav.is-open .nav__toggle span:nth-child(3) {
+  transform: translateY(-7px) rotate(-45deg);
+}
+
+/* Mobile menu */
+.mobile-menu {
+  position: fixed;
+  inset: var(--nav-h) 0 0 0;
+  z-index: 110;
+  background: var(--void);
+  border-top: 1px solid var(--line);
+  padding: 40px var(--gut) 56px;
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+  gap: 40px;
+  overflow-y: auto;
+  -webkit-overflow-scrolling: touch;
+  overscroll-behavior: contain;
+  transform: translateY(-8px);
+  opacity: 0;
+  transition: opacity 0.3s var(--ease), transform 0.3s var(--ease);
+}
+.mobile-menu[hidden] {
+  display: none;
+}
+.mobile-menu.is-visible {
+  opacity: 1;
+  transform: none;
+}
+.mobile-menu__links {
+  display: flex;
+  flex-direction: column;
+}
+.mobile-menu__links a {
+  font-family: var(--f-display);
+  font-weight: 700;
+  font-size: clamp(24px, 7vw, 36px);
+  text-transform: uppercase;
+  letter-spacing: 0.01em;
+  padding: 14px 0;
+  border-bottom: 1px solid var(--line);
+  display: flex;
+  align-items: baseline;
+  gap: 16px;
+  transition: color 0.2s, padding-left 0.25s var(--ease);
+}
+.mobile-menu__links a:hover {
+  color: var(--yellow);
+  padding-left: 10px;
+}
+.mobile-menu__links .idx {
+  font-family: var(--f-hud);
+  font-size: 13px;
+  color: var(--yellow);
+  letter-spacing: 0.1em;
+}
+.mobile-menu__cta {
+  display: flex;
+  flex-direction: column;
+  gap: 12px;
+}
+
+/* =============================================================
+   HERO — light arena
+   ============================================================= */
+.hero {
+  position: relative;
+  /* fill the viewport so the L1 (Ethereum) settlement band — pinned to the hero's
+     bottom edge — sits flush with the bottom of the screen on first load */
+  min-height: 100vh;
+  min-height: 100dvh;
+  display: flex;
+  flex-direction: column;
+  /* centered between the fixed nav and the bottom-pinned L1 band; the content's own
+     padding-bottom (which reserves the band's space) acts as the lower spacer */
+  justify-content: center;
+  background:
+    radial-gradient(120% 90% at 72% 32%, var(--paper-2) 0%, var(--paper) 48%, var(--paper-edge) 100%);
+  color: var(--ink);
+  overflow: hidden;
+  isolation: isolate;
+  padding-block: calc(var(--nav-h) + 28px) 0;
+}
+.hero__content {
+  position: relative;
+  z-index: 1;
+  display: grid;
+  grid-template-columns: 0.72fr 1fr;
+  align-items: center;
+  gap: clamp(24px, 3.5vw, 52px);
+  width: 100%;
+  padding-bottom: clamp(280px, 32vh, 340px);
+}
+.hero__text {
+  position: relative;
+}
+/* ── Meta-game ecosystem map — faithful gunz-mac/web reproduction (dark cards, light page) ── */
+.metawrap {
+  display: flex;
+  flex-direction: column;
+  color: var(--ink);
+}
+/* the scatter canopy: Record at center, meta-games strewn around it (positions = % of this box) */
+.canopy {
+  position: relative;
+  width: 100%;
+  aspect-ratio: 3 / 2;
+  margin-bottom: clamp(10px, 2vh, 20px);
+}
+/* faint glow marking the Record as the source */
+.canopy::before {
+  content: "";
+  position: absolute;
+  inset: 0;
+  z-index: 0;
+  background: radial-gradient(circle at 50% 50%, rgba(11, 11, 12, 0.05), transparent 52%);
+  pointer-events: none;
+}
+.branches {
+  position: absolute;
+  inset: 0;
+  z-index: 0;
+  width: 100%;
+  height: 100%;
+  overflow: visible;
+  pointer-events: none;
+}
+.branches .lk {
+  opacity: 0.45; /* subtle solid "creation" links — meta-games built from the Record */
+  transition: opacity 0.2s ease;
+}
+/* hover a card -> dim every branch and isolate its own; hover the Record -> light them all */
+@media (hover: hover) {
+  .canopy:has(.node:hover) .lk { opacity: 0.12; }
+  .canopy:has(.node[data-index="0"]:hover) .lk[data-index="0"],
+  .canopy:has(.node[data-index="1"]:hover) .lk[data-index="1"],
+  .canopy:has(.node[data-index="2"]:hover) .lk[data-index="2"],
+  .canopy:has(.node[data-index="3"]:hover) .lk[data-index="3"],
+  .canopy:has(.node[data-index="4"]:hover) .lk[data-index="4"],
+  .canopy:has(.node[data-index="5"]:hover) .lk[data-index="5"],
+  .canopy:has(.node[data-index="6"]:hover) .lk[data-index="6"],
+  .canopy:has(.node[data-index="7"]:hover) .lk[data-index="7"] { opacity: 1; }
+  .canopy:has(.node--core:hover) .lk { opacity: 1; }
+}
+
+/* meta-game card — gunz-mac/web: dark card, colored title, mono gray description */
+.node {
+  position: absolute;
+  transform: translate(-50%, -50%);
+  z-index: 1;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  text-align: center;
+  width: clamp(98px, 9.2vw, 126px);
+  padding: 12px 12px;
+  background: #0c0c0b;
+  border: 1px solid #1f2228;
+  transition: border-color 0.2s ease, background-color 0.2s ease;
+}
+.node b {
+  font-family: var(--f-body);
+  font-weight: 400;
+  font-size: clamp(12px, 1vw, 14px);
+  line-height: 1.3;
+  letter-spacing: -0.015em;
+  color: var(--c, #fff);
+  margin-bottom: 5px;
+}
+.node small {
+  font-family: ui-monospace, "SFMono-Regular", Menlo, monospace;
+  font-weight: 400;
+  font-size: clamp(9.5px, 0.78vw, 11px);
+  line-height: 1.4;
+  letter-spacing: 0.04em;
+  color: #7d8187;
+}
+@media (hover: hover) {
+  .node:hover {
+    border-color: var(--c, #fff);
+    background-color: #1f2228;
+  }
+}
+
+/* central Record — neutral gray, the colorless source every meta-game grows from */
+.node--core {
+  z-index: 2;
+  width: clamp(118px, 11.5vw, 152px);
+  gap: 2px;
+  padding: 14px 16px;
+  background: #1f2228;
+  border-color: #474747;
+}
+.node--core:hover { border-color: #fff; }
+.core__label {
+  font-family: var(--f-mono);
+  font-size: clamp(10px, 0.85vw, 12px);
+  line-height: 1.7;
+  letter-spacing: 0.1em;
+  text-transform: uppercase;
+  color: #fff;
+}
+.core__id {
+  font-family: var(--f-display);
+  font-weight: 800;
+  font-size: clamp(17px, 1.7vw, 22px);
+  line-height: 1.3;
+  letter-spacing: 0.01em;
+  color: #fff;
+}
+/* the Record IS the batch: a yellow settlement tab tying this node to the L1 chain below.
+   Same yellow as the seam and the dropping batch ball (.ethdrop). */
+.core__settle {
+  margin-top: 8px;
+  padding: 3px 9px;
+  border-radius: 2px;
+  background: linear-gradient(180deg, var(--yellow) 0%, #ffc400 100%);
+  font-family: var(--f-mono);
+  font-size: 7.5px;
+  letter-spacing: 0.12em;
+  text-transform: uppercase;
+  color: var(--yellow-ink);
+  white-space: nowrap;
+}
+/* each L1 settlement pulses the Record — "this record is what just settled" */
+.node--core.is-minting { animation: core-mint 0.72s ease-out; }
+@keyframes core-mint {
+  0%   { box-shadow: 0 0 0 0 rgba(255, 212, 0, 0.6); }
+  60%  { box-shadow: 0 0 0 12px rgba(255, 212, 0, 0); }
+  100% { box-shadow: 0 0 16px rgba(255, 212, 0, 0.32); }
+}
+
+/* ---------- spine: Record (canopy) ⇄ Tokamak L2 chip (foot) ----------
+   A dotted yellow thread drawn behind the hero content. Endpoints set by main.js. */
+.hero__spine {
+  position: absolute;
+  inset: 0;
+  z-index: 0;
+  width: 100%;
+  height: 100%;
+  pointer-events: none;
+  overflow: visible;
+  display: none; /* shown by main.js only when the radial canopy is laid out (>1024px) */
+}
+.spine__line {
+  stroke: var(--yellow-deep);
+  stroke-width: 2.4;
+  stroke-dasharray: 2.5 4.5;
+  stroke-linecap: round;
+  opacity: 1;
+  filter: drop-shadow(0 0 2px rgba(180, 140, 0, 0.55));
+}
+.spine__cap {
+  fill: var(--yellow);
+  filter: drop-shadow(0 0 5px rgba(255, 212, 0, 0.75));
+}
+/* meta-game record feeds — each funnels its record (in the card's accent colour)
+   into the same L2-ledger apex as the Record's prominent strand. */
+.spine__feed {
+  fill: none;
+  stroke-width: 1;
+  stroke-dasharray: 2 4.5;
+  stroke-linecap: round;
+  opacity: 0.42;
+}
+@media (prefers-reduced-motion: no-preference) {
+  .spine__line { animation: spine-flow 1.5s linear infinite; }
+  .spine__feed { animation: spine-flow 2.1s linear infinite; }
+}
+@keyframes spine-flow { to { stroke-dashoffset: 8; } }
+
+/* the "+" community-built card */
+.node--community b {
+  font-size: clamp(15px, 1.3vw, 18px);
+  color: var(--c, #9aa5b1);
+  margin-bottom: 3px;
+}
+
+/* below desktop the radial scatter gets cramped — fall back to a 2-col card grid */
+@media (max-width: 1024px) {
+  .canopy {
+    aspect-ratio: auto;
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 8px;
+    margin-bottom: 12px;
+  }
+  .canopy::before { display: none; }
+  .branches { display: none; }
+  .node {
+    position: static;
+    transform: none;
+    width: auto;
+    min-height: 84px;
+  }
+  .node--core {
+    grid-column: 1 / -1;
+    flex-direction: row;
+    gap: 12px;
+    min-height: 0;
+  }
+  .core__settle { display: none; }}
+.hero__title {
+  font-family: var(--f-display);
+  font-weight: 800;
+  text-transform: uppercase;
+  line-height: 1.0;
+  letter-spacing: 0.01em;
+  font-size: clamp(34px, 5.1vw, 64px);
+  margin: 18px 0 0;
+  color: var(--ink);
+}
+.hero__line {
+  display: block;
+}
+.hero__line--accent {
+  position: relative;
+  width: max-content;
+  max-width: 100%;
+  color: var(--ink);
+  -webkit-text-stroke: 0;
+}
+.hero__line--accent::after {
+  content: "";
+  position: absolute;
+  left: 0;
+  right: 0;
+  bottom: 0.08em;
+  height: 0.14em;
+  background: var(--yellow);
+  z-index: -1;
+  transform: skewX(-12deg);
+}
+.hero__lede {
+  max-width: 430px;
+  margin-top: 22px;
+  font-size: clamp(14px, 1.4vw, 16px);
+  line-height: 1.6;
+  color: var(--ink-soft);
+}
+.hero__lede strong {
+  color: var(--ink);
+  font-weight: 600;
+}
+.hero__lede em {
+  font-style: normal;
+  background: linear-gradient(transparent 62%, rgba(255, 212, 0, 0.55) 0);
+  font-weight: 600;
+}
+.hero__actions {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 12px;
+  margin-top: 30px;
+}
+
+/* ---------- value flow: Match → Record → Reputation → Opportunity ----------
+   The horizontal compounding the vertical stack produces — one match climbs
+   into lasting opportunity. Sits between the lede and the CTAs. */
+.flow {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  margin-top: 24px;
+  list-style: none;
+}
+.flow__step {
+  font-family: var(--f-mono);
+  font-size: clamp(10px, 1vw, 12px);
+  letter-spacing: 0.08em;
+  text-transform: uppercase;
+  color: var(--ink-soft);
+}
+.flow__step:not(:last-child)::after {
+  content: "→";
+  margin: 0 clamp(7px, 0.9vw, 11px);
+  color: var(--ink-mute);
+}
+.flow__step--end .flow__k {
+  color: var(--ink);
+  font-weight: 600;
+  box-shadow: inset 0 -0.42em 0 rgba(255, 212, 0, 0.55);
+}
+
+/* ---------- tier label (04 · Meta-game) crowning the canopy ----------
+   Matches the .xsec__tag system below (01/02 strata) so all four tiers read
+   as one numbered stack, top (04) to bedrock (01). */
+.tier {
+  display: flex;
+  align-items: baseline;
+  flex-wrap: wrap;
+  gap: 8px;
+  margin-bottom: clamp(8px, 1.4vh, 14px);
+  font-family: var(--f-mono);
+  font-size: 9px;
+  letter-spacing: 0.2em;
+  text-transform: uppercase;
+  line-height: 1.3;
+}
+.tier__no {
+  color: var(--yellow-deep);
+  font-weight: 600;
+}
+.tier__name {
+  color: var(--ink);
+  font-weight: 600;
+}
+.tier__role {
+  color: var(--ink-mute);
+  letter-spacing: 0.13em;
+}
+
+/* Record's own tier marker (03), seated inside the dark core box */
+.core__tier {
+  font-family: var(--f-mono);
+  font-size: 8px;
+  letter-spacing: 0.22em;
+  color: var(--yellow);
+  opacity: 0.85;
+}
+.strike {
+  position: relative;
+  color: var(--snow-dim);
+  white-space: nowrap;
+}
+.strike::after {
+  content: "";
+  position: absolute;
+  left: -3%;
+  right: -3%;
+  top: 52%;
+  height: 6px;
+  background: var(--ember);
+  transform: rotate(-2.5deg);
+  box-shadow: 0 0 16px 0 rgba(255, 90, 30, 0.5);
+}
+.section__title {
+  font-family: var(--f-display);
+  font-weight: 800;
+  text-transform: uppercase;
+  line-height: 1.05;
+  font-size: clamp(25px, 3.4vw, 44px);
+  margin: 18px 0 0;
+  letter-spacing: 0.01em;
+}
+
+/* =============================================================
+   GAMES
+   ============================================================= */
+.games {
+  background: var(--void);
+}
+.game {
+  border: 1px solid var(--line);
+  background: var(--panel);
+  margin-bottom: 28px;
+  overflow: hidden;
+}
+.game--feature {
+  display: grid;
+  grid-template-columns: 1.25fr 1fr;
+}
+.game__media {
+  position: relative;
+  min-height: 380px;
+  background: var(--paper) url("../assets/img/hero-poster-lqip.jpg") center / cover no-repeat;
+  overflow: hidden;
+}
+.game__video {
+  position: absolute;
+  inset: 0;
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  object-position: center 44%;
+}
+.game__corner {
+  position: absolute;
+  width: 34px;
+  height: 34px;
+  z-index: 2;
+  pointer-events: none;
+}
+.game__corner--tl {
+  top: 16px;
+  left: 16px;
+  border-top: 2px solid var(--yellow);
+  border-left: 2px solid var(--yellow);
+}
+.game__corner--br {
+  bottom: 16px;
+  right: 16px;
+  border-bottom: 2px solid var(--yellow);
+  border-right: 2px solid var(--yellow);
+}
+.game__top {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  width: 100%;
+  gap: 16px;
+  margin-bottom: 22px;
+}
+.game__logo {
+  width: 64px;
+  height: 64px;
+  object-fit: contain;
+}
+.game__name {
+  font-family: var(--f-display);
+  font-weight: 800;
+  font-size: clamp(26px, 3.4vw, 44px);
+  text-transform: uppercase;
+  line-height: 1.0;
+  letter-spacing: 0.01em;
+}
+.game__desc {
+  margin-top: 16px;
+  color: var(--snow-mute);
+  font-size: 16.5px;
+  max-width: 46ch;
+}
+.game__tags {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 8px;
+  margin: 22px 0 28px;
+}
+.game__tags li {
+  font-family: var(--f-hud);
+  font-size: 11.5px;
+  letter-spacing: 0.1em;
+  text-transform: uppercase;
+  color: var(--snow-mute);
+  border: 1px solid var(--line-strong);
+  padding: 6px 12px;
+}
+
+.game--standard {
+  display: grid;
+  grid-template-columns: 1fr 0.7fr;
+}
+
+/* Receipt card */
+.receipt {
+  position: sticky;
+  top: calc(var(--nav-h) + 30px);
+  background:
+    linear-gradient(180deg, var(--panel-2), var(--panel));
+  border: 1px solid var(--line-strong);
+  padding: 26px;
+  font-family: var(--f-hud);
+  clip-path: polygon(0 0, 100% 0, 100% calc(100% - 22px), calc(100% - 22px) 100%, 0 100%);
+  box-shadow: 0 40px 80px -40px rgba(0, 0, 0, 0.8);
+}
+.receipt__head {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding-bottom: 16px;
+  border-bottom: 1px dashed var(--line-strong);
+}
+.receipt__brand {
+  display: inline-flex;
+  align-items: center;
+  gap: 10px;
+  font-weight: 700;
+  font-size: 13px;
+  letter-spacing: 0.12em;
+  text-transform: uppercase;
+}
+.receipt__brand img {
+  width: 22px;
+  height: 22px;
+}
+.receipt__chip {
+  font-size: 10.5px;
+  font-weight: 700;
+  letter-spacing: 0.16em;
+  color: var(--ink);
+  background: var(--yellow);
+  padding: 4px 9px;
+}
+.receipt__title {
+  margin: 20px 0;
+  font-family: var(--f-display);
+  font-size: 30px;
+  letter-spacing: 0.02em;
+  text-transform: uppercase;
+}
+.receipt__rows {
+  display: flex;
+  flex-direction: column;
+}
+.receipt__rows > div {
+  display: flex;
+  justify-content: space-between;
+  align-items: baseline;
+  padding: 11px 0;
+  border-bottom: 1px dotted var(--line);
+}
+.receipt__rows dt {
+  font-size: 12px;
+  letter-spacing: 0.12em;
+  text-transform: uppercase;
+  color: var(--snow-dim);
+}
+.receipt__rows dd {
+  font-size: 15px;
+  font-weight: 600;
+  color: var(--snow);
+}
+.receipt__rows dd.pos {
+  color: var(--yellow);
+}
+.receipt__rows dd.final {
+  color: var(--ember-soft);
+}
+.receipt__foot {
+  margin-top: 18px;
+  padding-top: 14px;
+  border-top: 1px dashed var(--line-strong);
+}
+.receipt__hash {
+  font-size: 11.5px;
+  letter-spacing: 0.08em;
+  color: var(--snow-dim);
+  word-break: break-all;
+}
+#meta-games .card-grid { --cg-prefix: "M"; }
+#tools .card-grid { --cg-prefix: "T"; }
+
+/* Badges */
+.badge {
+  align-self: flex-start;
+  font-family: var(--f-hud);
+  font-weight: 700;
+  font-size: 10.5px;
+  letter-spacing: 0.14em;
+  text-transform: uppercase;
+  padding: 5px 10px;
+  border: 1px solid currentColor;
+}
+.badge--live {
+  color: var(--ink);
+  background: var(--yellow);
+  border-color: var(--yellow);
+  display: inline-flex;
+  align-items: center;
+  gap: 7px;
+}
+.badge--live::before {
+  content: "";
+  width: 7px;
+  height: 7px;
+  border-radius: 50%;
+  background: var(--ink);
+  box-shadow: 0 0 0 0 rgba(11, 11, 12, 0.6);
+  animation: pulse 1.8s infinite;
+}
+@keyframes pulse {
+  0% { box-shadow: 0 0 0 0 rgba(11, 11, 12, 0.55); }
+  70% { box-shadow: 0 0 0 7px rgba(11, 11, 12, 0); }
+  100% { box-shadow: 0 0 0 0 rgba(11, 11, 12, 0); }
+}
+
+/* =============================================================
+   CTA
+   ============================================================= */
+.cta {
+  position: relative;
+  background:
+    radial-gradient(80% 120% at 50% 0%, rgba(255, 212, 0, 0.08), transparent 60%),
+    var(--void);
+  border-top: 1px solid var(--line);
+  padding-block: clamp(80px, 12vw, 170px);
+  overflow: hidden;
+  text-align: center;
+}
+.cta__inner {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}
+.cta__eyes {
+  width: clamp(120px, 22vw, 240px);
+  margin-bottom: 26px;
+  filter: drop-shadow(0 10px 40px rgba(255, 212, 0, 0.18));
+}
+.cta__title {
+  font-family: var(--f-display);
+  font-weight: 800;
+  font-size: clamp(26px, 4.2vw, 56px);
+  text-transform: uppercase;
+  line-height: 1.06;
+  margin: 16px 0 32px;
+  letter-spacing: 0.01em;
+}
+.cta__actions {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 14px;
+  justify-content: center;
+}
+
+/* =============================================================
+   FOOTER
+   ============================================================= */
+.footer {
+  background: var(--void-2);
+  border-top: 1px solid var(--line);
+  padding-top: clamp(56px, 7vw, 90px);
+  padding-bottom: 40px;
+}
+.footer__brand .brand {
+  color: var(--snow);
+}
+
+/* slim footer */
+.footer--slim {
+  padding-bottom: 32px;
+}
+.footer__bar {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 28px;
+  flex-wrap: wrap;
+  padding-bottom: 28px;
+  border-bottom: 1px solid var(--line);
+}
+.footer--slim .footer__brand,
+.footer__bar .brand {
+  color: var(--snow);
+}
+.footer__links {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 26px;
+  font-family: var(--f-hud);
+  font-weight: 600;
+  font-size: 13.5px;
+  letter-spacing: 0.06em;
+  text-transform: uppercase;
+}
+.footer__links a {
+  color: var(--snow-mute);
+  transition: color 0.2s;
+}
+.footer__links a:hover {
+  color: var(--yellow);
+}
+.footer__copy {
+  margin-top: 24px;
+  font-family: var(--f-hud);
+  font-size: 12.5px;
+  letter-spacing: 0.06em;
+  text-transform: uppercase;
+  color: var(--snow-dim);
+}
+@media (max-width: 640px) {
+  .footer__bar {
+    flex-direction: column;
+    align-items: flex-start;
+    gap: 22px;
+  }
+  .footer__links {
+    gap: 16px 22px;
+  }}
+
+/* =============================================================
+   REVEAL ANIMATIONS
+   ============================================================= */
+[data-reveal] {
+  opacity: 0;
+  transform: translateY(26px);
+  transition: opacity 0.7s var(--ease), transform 0.7s var(--ease);
+  transition-delay: var(--d, 0ms);
+}
+[data-reveal].is-in {
+  opacity: 1;
+  transform: none;
+}
+
+/* =============================================================
+   RESPONSIVE
+   ============================================================= */
+@media (max-width: 1080px) {
+  .receipt {
+    position: relative;
+    top: 0;
+    max-width: 440px;
+  }}
+
+/* stack the hero once the radial map falls back to a grid, so it gets full width */
+@media (max-width: 1024px) {
+  .hero__content {
+    grid-template-columns: 1fr;
+    gap: clamp(24px, 4vw, 40px);
+  }
+  .metawrap {
+    max-width: 680px;
+    margin-inline: auto;
+  }
+}
+
+@media (max-width: 880px) {
+  :root { --nav-h: 64px; }
+  .hero {
+    min-height: 0;
+    padding-block: calc(var(--nav-h) + 24px) 0;
+  }
+  .hero__content {
+    grid-template-columns: 1fr;
+    gap: 28px;
+  }
+  .nav__links,
+  .nav__cta {
+    display: none;
+  }
+  .nav__toggle {
+    display: flex;
+  }
+  .game--feature,
+  .game--standard {
+    grid-template-columns: 1fr;
+  }
+  .game--feature .game__media {
+    min-height: 280px;
+    order: -1;
+  }}
+
+@media (max-width: 540px) {
+  body { font-size: 16px; }
+  .hero__actions .btn,
+  .cta__actions .btn {
+    width: 100%;
+    justify-content: center;
+  }
+  .receipt {
+    max-width: none;
+  }}
+
+/* ---------- hero map: layered "L1 → L2(many) → record → ecosystem" ---------- */
+.arch--stack {
+  align-self: end;
+}
+
+/* =============================================================
+   L1 / L2 SETTLEMENT CROSS-SECTION — a vertical strata cut at the
+   foot of the hero. Tier 2 (dark execution stratum) stacks directly
+   on Tier 1 (light Ethereum bedrock), split by a glowing yellow seam.
+   ============================================================= */
+.xsec {
+  position: absolute;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  z-index: 4;
+  display: flex;
+  flex-direction: column;
+  /* faint top edge marks where the L2 layer begins, lifting the whole stack off the page */
+  border-top: 1px solid rgba(11, 11, 12, 0.07);
+  box-shadow: 0 -18px 40px -28px rgba(0, 0, 0, 0.45);
+  overflow: hidden;
+}
+
+/* tier label shared by both strata — tiny mono caps */
+.xsec__tag {
+  font-family: var(--f-mono);
+  font-size: 9px;
+  letter-spacing: 0.2em;
+  text-transform: uppercase;
+  white-space: nowrap;
+}
+/* the role each stratum plays (the league / the bedrock) — second line under the tag */
+.xsec__role {
+  display: block;
+  margin-top: 3px;
+  font-style: normal;
+  font-size: 8px;
+  letter-spacing: 0.13em;
+  text-transform: none;
+  opacity: 0.72;
+  white-space: nowrap;
+}
+
+/* ---------- Tier 2 · Layer 2 (culture ecosystem) — no band background; sits on the
+   hero's light paper. Only the dark Tokamak host card stays as the focal element. ---------- */
+.xsec__l2 {
+  position: relative;
+  background: transparent;
+  /* generous bottom space so L2 sits clearly above the seam / L1 below */
+  padding-block: clamp(12px, 1.7vh, 18px) clamp(30px, 3.6vh, 48px);
+}
+/* mirror the hero__content grid so the Tokamak chip (centre of the right
+   column) lands directly under the canopy Record above it — the spine then
+   reads as one vertical axis through Record → L2 → L1. */
+.xsec__inner {
+  position: relative;
+  display: grid;
+  grid-template-columns: 0.72fr 1fr;
+  align-items: center;
+  gap: clamp(16px, 2.6vw, 34px);
+}
+.xsec__tag--l2 {
+  flex: none;
+  color: var(--ink-soft);
+}
+.xsec__tag--l2::before {
+  content: "02";
+  margin-right: 8px;
+  color: var(--yellow-deep);
+  font-weight: 600;
+}
+
+/* Layer-2 chip row — many L2s, Tokamak is ours and sits on the seam.
+   Pushed to the right so the Tokamak chip lands roughly under the canopy
+   Record above it, letting the spine thread read as one near-vertical axis. */
+.l2row {
+  display: flex;
+  align-items: center;
+  /* spread the culture across the column (no dead void) while the Tokamak host,
+     the middle item, stays centred under the canopy Record / spine axis */
+  justify-content: space-between;
+  gap: clamp(10px, 1.6vw, 22px);
+  flex-wrap: wrap;
+}
+.l2 {
+  position: relative;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  gap: 5px;
+  width: clamp(64px, 7vw, 82px);
+  background: rgba(255, 255, 255, 0.04);
+  border: 1px solid rgba(255, 255, 255, 0.12);
+  border-radius: 3px;
+  padding: 9px 9px;
+  transition: border-color 0.25s ease, background 0.25s ease;
+}
+.l2:not(.l2--ours):hover {
+  border-color: rgba(255, 255, 255, 0.26);
+  background: rgba(255, 255, 255, 0.07);
+}
+.l2ico {
+  display: block;
+  width: clamp(17px, 1.9vw, 22px);
+  height: auto;
+}
+.l2ico--tok {
+  width: clamp(28px, 2.9vw, 36px);
+  margin-bottom: 2px;
+}
+.l2 small {
+  font-family: var(--f-hud);
+  font-weight: 600;
+  font-size: 8px;
+  letter-spacing: 0.04em;
+  text-transform: uppercase;
+  color: var(--snow-dim);
+}
+/* Tokamak — the one L2 that is ours; brighter, taller, punches toward the seam */
+.l2--ours {
+  width: auto;
+  min-width: clamp(96px, 11vw, 124px);
+  margin-bottom: 0; /* no downward overhang — keep clear of the seam / L1 */
+  padding: 11px 18px 14px;
+  background: linear-gradient(180deg, #1c1c20 0%, #111114 100%);
+  border-color: rgba(255, 212, 0, 0.65);
+  box-shadow:
+    0 20px 38px -16px rgba(0, 0, 0, 0.7),
+    inset 0 0 0 1px rgba(255, 212, 0, 0.12),
+    0 0 0 0 rgba(255, 212, 0, 0.4);
+}
+.l2--ours b {
+  display: block;
+  font-family: var(--f-display);
+  font-weight: 800;
+  font-size: 13px;
+  letter-spacing: 0.02em;
+  color: var(--yellow);
+}
+.l2--ours small {
+  font-family: var(--f-mono);
+  font-size: 8px;
+  letter-spacing: 0.12em;
+  text-transform: uppercase;
+  color: var(--snow-mute);
+}
+/* "settles ↓" cue tying the host to the seam */
+.l2__settle {
+  margin-top: 3px;
+  font-family: var(--f-mono);
+  font-size: 7.5px;
+  letter-spacing: 0.16em;
+  text-transform: uppercase;
+  color: var(--yellow-deep);
+  opacity: 0.9;
+}
+/* the records written onto L2 before settlement — game outcomes + meta-game activity */
+.l2__intake {
+  margin-bottom: 5px;
+  font-family: var(--f-mono);
+  font-size: 7px;
+  letter-spacing: 0.09em;
+  text-transform: uppercase;
+  color: var(--snow-dim);
+  white-space: nowrap;
+}
+
+/* culture facets — the living layer that grows on Tokamak L2 (communities, creators,
+   guilds, identity). Deliberately lighter than the host so they read as the culture,
+   not as peer chains. */
+.eco {
+  position: relative;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 7px;
+  color: var(--ink-mute);
+  opacity: 0.9;
+  transition: opacity 0.25s ease, color 0.25s ease;
+}
+.eco:hover { opacity: 1; color: var(--ink); }
+.eco__ico {
+  display: block;
+  width: clamp(18px, 2vw, 22px);
+  height: auto;
+}
+.eco small {
+  font-family: var(--f-hud);
+  font-weight: 600;
+  font-size: 8px;
+  letter-spacing: 0.05em;
+  text-transform: uppercase;
+}
+
+/* ---------- Seam · the settlement boundary the batch crosses ---------- */
+.xsec__seam {
+  position: relative;
+  height: 2px;
+  background: linear-gradient(90deg, var(--yellow-deep), var(--yellow), var(--yellow-deep));
+  box-shadow: 0 0 16px rgba(255, 212, 0, 0.55), 0 0 0 1px rgba(245, 196, 0, 0.4);
+  z-index: 2;
+}
+.xsec__seamlabel {
+  position: absolute;
+  right: max(var(--gut), calc((100% - var(--maxw)) / 2 + var(--gut)));
+  top: 50%;
+  transform: translateY(-50%);
+  padding: 3px 8px;
+  background: #0e0e11;
+  border: 1px solid rgba(255, 212, 0, 0.4);
+  font-family: var(--f-mono);
+  font-size: 7.5px;
+  letter-spacing: 0.18em;
+  text-transform: uppercase;
+  color: var(--yellow);
+  white-space: nowrap;
+}
+
+/* ---------- Tier 1 · Layer 1 (Ethereum settlement bedrock, light) ---------- */
+.xsec__l1 {
+  position: relative;
+  background: #f4f4f2;
+  /* generous top space so the L1 conveyor sits clearly below the seam / L2 above */
+  padding-block: clamp(36px, 4.4vh, 58px) clamp(10px, 1.6vh, 15px);
+  /* inset top shadow → L1 reads as the solid foundation the L2 layer is stacked on */
+  box-shadow: inset 0 22px 30px -20px rgba(11, 11, 12, 0.34);
+  overflow: hidden;
+}
+.eth__cap {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  margin-top: clamp(10px, 1.5vh, 15px);
+}
+.xsec__tag--l1 {
+  color: var(--ink-soft);
+}
+.xsec__tag--l1::before {
+  content: "01";
+  margin-right: 8px;
+  color: var(--yellow-deep);
+  font-weight: 600;
+}
+.eth__cap > span:last-child::before {
+  content: "";
+  display: inline-block;
+  width: 1px;
+  height: 11px;
+  margin-right: 10px;
+  background: var(--paper-edge);
+  vertical-align: -1px;
+}
+.ethlogo {
+  flex: none;
+  width: clamp(15px, 1.7vw, 20px);
+  height: auto;
+  fill: var(--ink-soft);
+}
+.eth__cap span:last-child {
+  font-family: var(--f-mono);
+  font-weight: 400;
+  font-size: 9px;
+  letter-spacing: 0.14em;
+  text-transform: uppercase;
+  color: var(--ink-mute);
+}
+/* the conveyor track spans the whole band, edge to edge; the moving row is clipped to it */
+.ethchain__track {
+  position: relative;
+  width: 100%;
+  overflow: hidden;
+}
+.ethchain__track::before {
+  content: "";
+  position: absolute;
+  left: 0;
+  right: 0;
+  top: 50%;
+  height: 2px;
+  transform: translateY(-50%);
+  background: repeating-linear-gradient(
+    90deg,
+    rgba(11, 11, 12, 0.18) 0 10px,
+    transparent 10px 18px
+  );
+  z-index: 0;
+}
+.ethflow {
+  display: flex;
+  align-items: center;
+  gap: var(--eblk-gap, 16px);
+  width: max-content;
+  will-change: transform;
+}
+.eblk {
+  position: relative;
+  z-index: 1;
+  flex: none;
+  display: grid;
+  place-items: center;
+  width: var(--eblk-w, 46px);
+  height: clamp(26px, 2.8vw, 36px);
+  background: rgba(255, 255, 255, 0.88);
+  border: 1px solid rgba(11, 11, 12, 0.16);
+  transition: background 0.45s ease, border-color 0.45s ease,
+    box-shadow 0.45s ease, color 0.45s ease;
+}
+.eblk i {
+  font-family: var(--f-mono);
+  font-style: normal;
+  font-size: 8.5px;
+  letter-spacing: 0.02em;
+  color: var(--ink-mute);
+}
+/* a block that just received a Tokamak batch — turns yellow and keeps it */
+.eblk--got {
+  background: linear-gradient(180deg, var(--yellow) 0%, #ffc400 100%);
+  border-color: #e0aa00;
+  box-shadow: 0 2px 10px -2px rgba(214, 170, 0, 0.55);
+}
+.eblk--got i {
+  color: var(--yellow-ink);
+  font-weight: 600;
+}
+/* impact flash at the moment of receipt */
+.eblk--flash {
+  animation: blk-flash 0.55s ease-out;
+}
+@keyframes blk-flash {
+  0% { box-shadow: 0 0 0 0 rgba(255, 212, 0, 0.85); transform: translateY(-3px); }
+  60% { box-shadow: 0 0 0 11px rgba(255, 212, 0, 0); transform: translateY(0); }
+  100% { box-shadow: 0 0 16px rgba(255, 212, 0, 0.4); transform: translateY(0); }
+}
+/* "Tokamak batch" tag — shown only on the most recently settled block */
+.eblk__tag {
+  position: absolute;
+  bottom: calc(100% + 7px);
+  left: 50%;
+  transform: translateX(-50%);
+  white-space: nowrap;
+  font-family: var(--f-mono);
+  font-size: 7.5px;
+  letter-spacing: 0.09em;
+  text-transform: uppercase;
+  color: #8a6d00;
+  opacity: 0;
+  transition: opacity 0.3s ease;
+}
+.eblk--latest .eblk__tag { opacity: 1; }
+.eblk--latest {
+  box-shadow: 0 0 0 1px rgba(214, 170, 0, 0.7), 0 2px 16px -2px rgba(214, 170, 0, 0.6);
+}
+
+/* the batch packet: a yellow ball that drops from Tokamak into an L1 block */
+.ethdrop {
+  position: absolute;
+  z-index: 5;
+  top: 0;
+  left: 0;
+  width: 13px;
+  height: 13px;
+  margin: -6.5px 0 0 -6.5px;
+  border-radius: 50%;
+  background: radial-gradient(circle at 36% 30%, #fff7c6, var(--yellow) 52%, var(--yellow-deep));
+  box-shadow: 0 0 15px rgba(255, 212, 0, 0.85);
+  opacity: 0;
+  pointer-events: none;
+}
+.ethdrop.is-dropping {
+  animation: eth-drop var(--drop-ms, 720ms) cubic-bezier(0.45, 0, 0.78, 1) forwards;
+}
+@keyframes eth-drop {
+  0%   { opacity: 0; transform: translateY(0) scale(0.6); }
+  14%  { opacity: 1; transform: translateY(calc(var(--drop-dist, 120px) * 0.12)) scale(1); }
+  80%  { opacity: 1; transform: translateY(calc(var(--drop-dist, 120px) * 0.9)) scaleY(1.35); }
+  100% { opacity: 0; transform: translateY(var(--drop-dist, 120px)) scaleY(0.55); }
+}
+
+/* mobile: L2 row wraps; chain stays full-bleed at the foot */
+@media (max-width: 640px) {
+  /* cross-section: tier label sits above the wrapped chip cluster */
+  .xsec__inner {
+    display: flex;
+    flex-direction: column;
+    align-items: flex-start;
+    gap: 10px;
+  }
+  .l2row {
+    flex-wrap: wrap;
+    justify-content: center;
+    width: 100%;
+    gap: 14px;
+  }
+  .l2--ours { margin-bottom: 0; } /* no seam overhang when the cluster wraps */
+  .l2__settle { display: none; }
+  .l2__intake { display: none; }
+  .xsec__seamlabel { display: none; }
+  .ethdrop { display: none; }
+  .eblk { height: clamp(22px, 7vw, 30px); }}
+
+/* =============================================================
+   REDESIGN — "The Ledger Unfolds"  (Problem→Solution / Games / End)
+   ============================================================= */
+
+/* shared corner record-stub */
+.recstub {
+  font-family: var(--f-mono);
+  font-size: 11px;
+  letter-spacing: 0.08em;
+  text-transform: uppercase;
+  color: var(--ink-mute);
+}
+.recstub--dark { color: var(--snow-dim); }
+
+/* ---------- (A) AUDIT LEDGER · light ---------- */
+.audit {
+  background: var(--paper);
+  color: var(--ink);
+}
+.audit__head {
+  display: flex;
+  align-items: baseline;
+  justify-content: space-between;
+  gap: 14px;
+  flex-wrap: wrap;
+}
+.kicker__no--ink {
+  color: var(--ink);
+  border-color: var(--ink);
+}
+.audit__statement {
+  font-family: var(--f-display);
+  font-weight: 800;
+  text-transform: uppercase;
+  line-height: 1.08;
+  letter-spacing: 0.01em;
+  font-size: clamp(26px, 4.4vw, 54px);
+  margin: 22px 0 0;
+  color: var(--ink);
+}
+.strike--ink {
+  color: var(--ink-mute);
+  white-space: nowrap;
+}
+.audit__hi {
+  position: relative;
+  color: var(--ink);
+  white-space: nowrap;
+}
+.audit__hi::after {
+  content: "";
+  position: absolute;
+  left: -1%;
+  right: -1%;
+  bottom: 0.08em;
+  height: 0.16em;
+  background: var(--yellow);
+  z-index: -1;
+  transform: skewX(-12deg);
+}
+.audit__lede {
+  max-width: 620px;
+  margin-top: 22px;
+  color: var(--ink-soft);
+  font-size: clamp(15px, 1.6vw, 18px);
+}
+.audit__rows {
+  margin-top: clamp(36px, 5vw, 58px);
+  border-top: 1px solid rgba(11, 11, 12, 0.16);
+}
+.arow {
+  position: relative;
+  display: grid;
+  grid-template-columns: 1fr clamp(46px, 9vw, 120px) 1fr;
+  align-items: center;
+  gap: clamp(14px, 2.6vw, 40px);
+  padding: clamp(20px, 2.6vw, 30px) 0;
+  border-bottom: 1px solid rgba(11, 11, 12, 0.12);
+  transition: border-color 0.25s var(--ease);
+}
+.arow__meta {
+  font-family: var(--f-mono);
+  font-size: 10px;
+  letter-spacing: 0.08em;
+  text-transform: uppercase;
+}
+.arow__p .arow__meta { color: var(--ember); }
+.arow__s .arow__meta { color: var(--ink-mute); }
+.arow__title {
+  display: flex;
+  align-items: baseline;
+  gap: 9px;
+  font-family: var(--f-hud);
+  font-weight: 700;
+  text-transform: uppercase;
+  font-size: clamp(15px, 1.9vw, 20px);
+  letter-spacing: 0.01em;
+  line-height: 1.1;
+  margin-top: 8px;
+}
+.arow__no {
+  font-family: var(--f-mono);
+  font-weight: 400;
+  font-size: 11px;
+  color: var(--ink-mute);
+}
+.arow__p .arow__title {
+  color: var(--ink-mute);
+  text-decoration: line-through;
+  text-decoration-color: var(--ember);
+  text-decoration-thickness: 2px;
+}
+.arow__s .arow__title { color: var(--ink); }
+.arow p {
+  margin-top: 8px;
+  font-size: 14px;
+  line-height: 1.5;
+  max-width: 42ch;
+}
+.arow__p p { color: var(--ink-mute); }
+.arow__s p { color: var(--ink-soft); }
+.swipe {
+  background: linear-gradient(transparent 60%, rgba(255, 212, 0, 0.6) 0);
+  padding: 0 2px;
+}
+.arow__link {
+  position: relative;
+  align-self: center;
+}
+.arow__link svg {
+  display: block;
+  width: 100%;
+  height: 12px;
+}
+.aflow {
+  fill: none;
+  stroke: rgba(11, 11, 12, 0.4);
+  stroke-width: 1.5;
+  stroke-dasharray: 0.6 3.6;
+  vector-effect: non-scaling-stroke;
+  animation: lk-flow 2.6s linear infinite;
+}
+.arow__dot {
+  position: absolute;
+  right: -4px;
+  top: 50%;
+  transform: translateY(-50%);
+  width: 9px;
+  height: 9px;
+  border-radius: 50%;
+  background: var(--yellow);
+  box-shadow: 0 0 0 3px var(--paper);
+}
+.arow__dot--key {
+  box-shadow: 0 0 0 3px var(--paper), 0 0 12px 2px rgba(255, 212, 0, 0.85);
+}
+.arow:hover { border-bottom-color: var(--yellow); }
+.arow:hover .aflow { stroke: var(--yellow); }
+@media (max-width: 760px) {
+  .arow {
+    grid-template-columns: 1fr;
+    gap: 6px;
+  }
+  .arow__link { height: 24px; display: flex; align-items: center; }
+  .arow__link svg,
+  .arow__dot { display: none; }
+  .arow__link::before {
+    content: "↓";
+    font-family: var(--f-display);
+    color: var(--yellow);
+    font-size: 20px;
+  }}
+
+/* ---------- ledger seam (light -> dark) ---------- */
+.seal {
+  position: relative;
+  background: var(--void-2);
+  border-block: 1px solid var(--line);
+  overflow: hidden;
+}
+.seal__inner {
+  position: relative;
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  padding-block: 11px;
+}
+.seal__dot {
+  flex: none;
+  width: 8px;
+  height: 8px;
+  border-radius: 50%;
+  background: var(--yellow);
+  animation: pulse 1.8s infinite;
+}
+.seal__text {
+  font-family: var(--f-mono);
+  font-size: 11px;
+  letter-spacing: 0.14em;
+  text-transform: uppercase;
+  color: var(--snow-mute);
+}
+.seal__scan {
+  position: absolute;
+  left: 0;
+  top: 0;
+  bottom: 0;
+  width: 130px;
+  background: linear-gradient(90deg, transparent, rgba(255, 212, 0, 0.45), transparent);
+  animation: seal-scan 3.6s linear infinite;
+}
+@keyframes seal-scan {
+  0% { transform: translateX(-160px); }
+  100% { transform: translateX(100vw); }
+}
+
+/* ---------- (B) GAMES · dark live ledger ---------- */
+.games__head {
+  display: flex;
+  align-items: flex-end;
+  justify-content: space-between;
+  gap: 24px;
+  flex-wrap: wrap;
+  margin-bottom: clamp(34px, 5vw, 56px);
+}
+.games__head .kicker { margin-bottom: 16px; }
+.games__feed {
+  position: relative;
+  display: flex;
+  flex-direction: column;
+  gap: 24px;
+}
+.games__feed .game { margin-bottom: 0; }
+.game__rail {
+  padding: clamp(22px, 2.6vw, 34px);
+  display: flex;
+  flex-direction: column;
+  gap: 18px;
+}
+.game--feature { grid-template-columns: 1.5fr 1fr; }
+.game--standard { grid-template-columns: 1fr 1fr; }
+.game__rail > .btn { margin-top: auto; }
+.receipt--game {
+  position: static;
+  top: auto;
+}
+.game__chit {
+  position: absolute;
+  right: 14px;
+  bottom: 14px;
+  z-index: 3;
+  font-family: var(--f-mono);
+  font-size: 10px;
+  letter-spacing: 0.05em;
+  text-transform: uppercase;
+  color: var(--snow);
+  background: rgba(10, 10, 11, 0.8);
+  border: 1px solid var(--line-strong);
+  padding: 7px 10px;
+  clip-path: polygon(0 0, 100% 0, 100% 66%, calc(100% - 8px) 100%, 0 100%);
+}
+.game__chit b { color: var(--yellow); }
+/* blockball match side */
+.game__match {
+  position: relative;
+  display: grid;
+  place-items: center;
+  padding: clamp(22px, 2.6vw, 34px);
+  background:
+    radial-gradient(120% 120% at 70% 15%, rgba(255, 255, 255, 0.03), transparent),
+    var(--void-2);
+  border-left: 1px solid var(--line);
+  overflow: hidden;
+}
+.game__match .receipt--game {
+  position: relative;
+  z-index: 2;
+  width: 100%;
+  max-width: 320px;
+}
+.game__match .pitch {
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  width: 82%;
+  opacity: 0.3;
+  z-index: 1;
+}
+.games__foot {
+  margin-top: 24px;
+  font-family: var(--f-mono);
+  font-size: 12px;
+  letter-spacing: 0.06em;
+  text-transform: uppercase;
+  color: var(--snow-dim);
+}
+@media (min-width: 981px) {
+  .games__feed { padding-left: 40px; }
+  .games__feed::before {
+    content: "";
+    position: absolute;
+    left: 14px;
+    top: 16px;
+    bottom: 16px;
+    width: 2px;
+    background: linear-gradient(180deg, var(--yellow), rgba(255, 255, 255, 0.16));
+  }
+  .games__feed .game::before {
+    content: "";
+    position: absolute;
+    left: -30px;
+    top: 40px;
+    width: 10px;
+    height: 10px;
+    border-radius: 50%;
+    background: var(--void);
+    border: 2px solid var(--yellow);
+    box-shadow: 0 0 8px rgba(255, 212, 0, 0.5);
+  }}
+@media (max-width: 880px) {
+  .game--feature,
+  .game--standard { grid-template-columns: 1fr; }
+  .game--feature .game__media { order: -1; min-height: 240px; }
+  .game__match {
+    border-left: none;
+    border-top: 1px solid var(--line);
+    min-height: 220px;
+  }}
+
+/* ---------- (C) END · full-bleed yellow stamp ---------- */
+.cta--stamp {
+  background: var(--yellow);
+  color: var(--ink);
+  border-top: none;
+  text-align: center;
+  overflow: hidden;
+  padding-block: clamp(72px, 11vw, 148px);
+  clip-path: polygon(0 0, 100% 0, 100% calc(100% - 40px), calc(100% - 40px) 100%, 0 100%);
+}
+.cta--stamp::before {
+  content: "";
+  position: absolute;
+  left: 0;
+  right: 0;
+  top: 0;
+  height: 1px;
+  background: rgba(11, 11, 12, 0.25);
+}
+.cta--stamp .cta__inner {
+  position: relative;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}
+.cta__arrival {
+  width: 12px;
+  height: 12px;
+  border-radius: 50%;
+  background: var(--ink);
+  box-shadow: 0 0 0 6px rgba(11, 11, 12, 0.12);
+  margin-bottom: 22px;
+  animation: pulse-ink 2s ease-out 1;
+}
+@keyframes pulse-ink {
+  0% { box-shadow: 0 0 0 0 rgba(11, 11, 12, 0.5); }
+  100% { box-shadow: 0 0 0 14px rgba(11, 11, 12, 0); }
+}
+.cta--stamp .cta__eyes {
+  width: clamp(92px, 15vw, 150px);
+  margin-bottom: 22px;
+  filter: grayscale(1) brightness(0) opacity(0.88);
+}
+.cta--stamp .cta__title {
+  font-family: var(--f-display);
+  font-weight: 800;
+  text-transform: uppercase;
+  font-size: clamp(28px, 5vw, 64px);
+  line-height: 1.04;
+  letter-spacing: 0.01em;
+  color: var(--ink);
+  margin: 0 0 28px;
+}
+.cta__hi {
+  position: relative;
+}
+.cta__hi::after {
+  content: "";
+  position: absolute;
+  left: -3%;
+  right: -3%;
+  bottom: 0.08em;
+  height: 0.16em;
+  background: var(--ink);
+  z-index: -1;
+  transform: skewX(-12deg);
+}
+.cta__slot {
+  display: inline-flex;
+  flex-direction: column;
+  gap: 4px;
+  align-items: center;
+  padding: 14px 28px;
+  border: 1.5px dashed rgba(11, 11, 12, 0.5);
+  margin-bottom: 30px;
+  transition: border-color 0.25s var(--ease), background 0.25s var(--ease);
+}
+.cta__slot-id {
+  font-family: var(--f-display);
+  font-weight: 800;
+  font-size: 22px;
+  color: var(--ink);
+}
+.cta__slot-text {
+  font-family: var(--f-mono);
+  font-size: 10.5px;
+  letter-spacing: 0.1em;
+  text-transform: uppercase;
+  color: rgba(11, 11, 12, 0.62);
+}
+.cta--stamp .cta__inner:has(.cta__actions a:hover) .cta__slot {
+  border-style: solid;
+  border-color: var(--ink);
+  background: rgba(11, 11, 12, 0.06);
+}
+.cta--stamp .cta__actions {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 14px;
+  justify-content: center;
+}
+.btn--solid-ink {
+  background: var(--ink);
+  color: var(--paper);
+}
+.btn--solid-ink:hover {
+  background: #000;
+  box-shadow: 0 14px 40px -12px rgba(11, 11, 12, 0.5);
+}
+.cta--stamp .btn--ghost-ink {
+  border-color: rgba(11, 11, 12, 0.55);
+}
+.cta__thesis {
+  margin-top: 22px;
+  font-family: var(--f-mono);
+  font-size: 12px;
+  letter-spacing: 0.08em;
+  text-transform: uppercase;
+  color: var(--ink-soft);
+  text-decoration: underline;
+  text-decoration-style: dotted;
+  text-underline-offset: 4px;
+}
+.cta__thesis:hover { color: var(--ink); }
+
+/* Short viewports: keep mobile-menu CTAs reachable, avoid hero/marquee collision */
+@media (max-height: 760px) {
+  .mobile-menu {
+    justify-content: flex-start;
+    gap: 18px;
+    padding-top: 24px;
+    padding-bottom: 28px;
+  }
+  .mobile-menu__links a {
+    font-size: clamp(26px, 7.5vw, 38px);
+    padding: 7px 0;
+  }}
+@media (max-height: 560px) and (orientation: landscape) {
+  .hero {
+    min-height: 640px;
+  }
+  .hero__content {
+    padding-top: calc(var(--nav-h) + 10px);
+    padding-bottom: 90px;
+  }}
+
+/* =============================================================
+   REDUCED MOTION
+   ============================================================= */
+@media (prefers-reduced-motion: reduce) {
+  html {
+    scroll-behavior: auto;
+  }
+  *,
+  *::before,
+  *::after {
+    animation-duration: 0.001ms !important;
+    animation-iteration-count: 1 !important;
+    transition-duration: 0.001ms !important;
+  }
+  [data-reveal] {
+    opacity: 1;
+    transform: none;
+  }}
